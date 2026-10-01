@@ -1,0 +1,2536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#05070d" />
+<meta name="description" content="James Jose V. Estoque — Lead Game Developer specialising in action, fantasy and sci-fi games. Featured project: Iron Gladiator — Armor Design. Combat systems, ability frameworks, enemy AI and procedural worlds." />
+<title>JAMES JOSE V. ESTOQUE // LEAD GAME DEVELOPER</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2305070d'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial,sans-serif' font-size='32' font-weight='900' text-anchor='middle' fill='%2300e5ff'%3EJ%3C/text%3E%3C/svg%3E" />
+
+<!--
+  ============================================================================
+  JAMES JOSE V. ESTOQUE  —  SINGLE-FILE INTERACTIVE PORTFOLIO
+  ============================================================================
+  Everything lives in this one file. No images, no libraries, no CDNs, no fonts.
+
+  HOW TO EDIT YOUR CONTENT  ->  Go to the block below named "SITE CONTENT"
+  (inside the <script> at the very top of this file). Change the text and
+  the whole website updates. Nothing else needs to be touched.
+
+  STRUCTURE OF THIS FILE
+    1. SITE CONTENT ......... all your data (edit this)
+    2. STYLES ............... all CSS
+    3. MARKUP ............... all HTML
+    4. ENGINE ............... all JavaScript (menus, views, modals, arcade)
+  ============================================================================
+-->
+
+<!-- ==========================================================================
+     1. SITE CONTENT  —  EDIT EVERYTHING YOU WANT TO CHANGE IN HERE
+     ========================================================================== -->
+<script>
+/* ---------------------------------------------------------------------------
+   SITE CONTENT — this is the only place you need to edit for your own content
+   --------------------------------------------------------------------------- */
+const SITE = {
+
+  /* ---------------------------------------------------------------------
+     BRANDING / IDENTITY — used on the title screen and the top bar
+     --------------------------------------------------------------------- */
+  brand: {
+    mark: "JVE",                          // short logo mark (2-4 letters)
+    name: "JAMES ESTOQUE",                 // short name in the corner
+    fullName: "James Jose V. Estoque",     // full legal-ish name
+    role: "Lead Game Developer",
+    tagline: "Combat systems  ·  Enemy AI  ·  Procedural worlds",
+    location: "Philippines  //  Remote-friendly",
+    availability: "Open to contract & studio work",
+  },
+
+  /* ---------------------------------------------------------------------
+     BOOT SEQUENCE — the fake terminal lines on the title screen
+     --------------------------------------------------------------------- */
+  boot: [
+    "mounting unity runtime ......... OK",
+    "compiling c# assemblies ........ OK",
+    "loading ability database ....... OK",
+    "spawning enemy navmesh ......... OK",
+    "seeding procedural world ....... OK",
+    "handshake complete ............. WELCOME",
+  ],
+
+  /* ---------------------------------------------------------------------
+     MAIN MENU — each item scrolls to / opens the matching view
+     --------------------------------------------------------------------- */
+  nav: [
+    { id: "projects", label: "PROJECTS", code: "01", hint: "Shipped titles & prototypes" },
+    { id: "skills",   label: "SKILLS",   code: "02", hint: "Engine, code & systems" },
+    { id: "about",    label: "ABOUT",    code: "03", hint: "Who is behind the build" },
+    { id: "arcade",   label: "ARCADE",   code: "04", hint: "Playable combat prototype" },
+    { id: "contact",  label: "CONTACT",  code: "05", hint: "Hire me / send a transmission" },
+  ],
+
+  /* ---------------------------------------------------------------------
+     HEADLINE STATS — counters on the ABOUT view (value = target number,
+     suffix is appended as-is, e.g. "+", "K", "s")
+     --------------------------------------------------------------------- */
+  stats: [
+    { label: "YEARS IN PRODUCTION", value: 10, suffix: "" },
+    { label: "SHIPPED TITLES",      value: 3,  suffix: "" },
+    { label: "ENEMY PROTOTYPES",    value: 120, suffix: "+" },
+    { label: "LINES OF SHIPPED C#", value: 180, suffix: "K" },
+  ],
+
+  /* ---------------------------------------------------------------------
+     ABOUT — bio paragraphs, timeline, and the "signature" trait chips
+     --------------------------------------------------------------------- */
+  about: {
+    heading: "PROGRAMMER TURNED GAME DEVELOPER",
+    paragraphs: [
+      "I am a programmer turned game developer with <strong>10 years of experience</strong> reading code fast and turning it into something a player can feel. I specialise in <strong>action, fantasy and sci-fi</strong> games — the genres where a hit must land in 200 milliseconds and stay readable for 40 hours.",
+      "My work lives in the systems layer: responsive combat, ability frameworks, enemy AI, and procedural worlds. I like tools that designers can drive without a programmer standing next to them, debug overlays that tell the truth, and builds that hold 60 frames on hardware people actually own.",
+      "Three titles shipped under my belt — <strong>Dream Siege</strong>, <strong>Iron Gladiator</strong> and <strong>Road to Fortune</strong> — plus a pile of prototypes that taught me more than any shipped game did.",
+    ],
+    timeline: [
+      { when: "2015 — 2018", role: "Gameplay Programmer",        org: "Systems / Tooling",      note: "C# services, editor tooling, data-driven inventories, first shipped combat loops." },
+      { when: "2018 — 2021", role: "Senior Gameplay Engineer",   org: "Action titles",           note: "Ability system rewrite, animation/state machine overhaul, frame-time recovery on console." },
+      { when: "2021 — 2023", role: "Combat & AI Lead",           org: "Fantasy / Sci-fi",        note: "Owned the combat feel pass, enemy behaviour trees, encounter and boss design support." },
+      { when: "2023 — NOW",   role: "Lead Game Developer",       org: "Full-cycle ownership",   note: "Team lead on live titles, procedural world tooling, code review, build & release." },
+    ],
+    traits: ["CODE FIRST", "FEEL FIRST", "SHIP IT", "PROFILER ADDICT", "DESIGNER FRIENDLY"],
+  },
+
+  /* ---------------------------------------------------------------------
+     SKILLS — level is 0-100 and drives the animated bars.
+     group is only a label; you can invent your own groups.
+     --------------------------------------------------------------------- */
+  skills: [
+    { name: "Unity (Engine / Editor tooling)", group: "ENGINE",   level: 96, note: "Custom editors, assembly definitions, build pipelines, profiler budgets." },
+    { name: "C# / .NET",                        group: "CODE",     level: 95, note: "Runtime architecture, async jobs, allocation-free hot paths." },
+    { name: "JavaScript (web & tools)",         group: "CODE",     level: 80, note: "Web dashboards, data pipelines, build & telemetry tooling." },
+    { name: "Combat & ability systems",         group: "GAMEPLAY", level: 94, note: "Frame-data windows, hitboxes, i-frames, cancel & buffer logic." },
+    { name: "Armor / rig design",                group: "GAMEPLAY", level: 92, note: "Iron Gladiator — plate durability, weight, heat and handling trade-offs." },
+    { name: "Enemy AI & behaviour trees",       group: "GAMEPLAY", level: 90, note: "Utility scoring, perception, squad coordination, telegraphed AI." },
+    { name: "Procedural generation",            group: "GAMEPLAY", level: 88, note: "Biome rules, weighted grammars, seeded & reproducible worlds." },
+    { name: "Physics & collision",              group: "TECH",     level: 89, note: "Custom character controllers, sweep tests, kinematic combat." },
+    { name: "Shader & VFX programming",         group: "TECH",     level: 78, note: "HLSL/VFX-graph, dissolve & hit flashes, additive combat FX." },
+    { name: "Mobile optimisation",              group: "TECH",     level: 86, note: "Draw-call batching, texture atlases, 60fps on mid-range phones." },
+    { name: "UI / HUD implementation",          group: "TECH",     level: 84, note: "Runtime UI, damage numbers, minimaps, controller & touch UX." },
+    { name: "Git / CI / build automation",      group: "PIPELINE", level: 82, note: "Trunk-based flow, addressables, automated smoke-test builds." },
+    { name: "Design collaboration",             group: "PIPELINE", level: 87, note: "Docs, tech design, quick prototypes to unblock a design in 48h." },
+  ],
+
+  /* ---------------------------------------------------------------------
+     PROJECTS — the cards. Click any card to open the full detail view.
+     Fields:
+       title, genre, year, status (SHIPPED / PROTOTYPE / IN DEVELOPMENT),
+       role, stack[], tagline, summary, highlights[], art (visual style key),
+       c1 / c2 (two accent colours used by the generated artwork),
+       stats[] (mini result chips), links[] ({label, href})
+     --------------------------------------------------------------------- */
+  projects: [
+    {
+      id: "dream-siege",
+      title: "DREAM SIEGE",
+      genre: "Action / Fantasy",
+      year: "2024",
+      status: "SHIPPED",
+      role: "Lead Programmer",
+      art: "siege",
+      c1: "#00e5ff",
+      c2: "#7a5cff",
+      tagline: "A castle siege where every wall is a weapon system.",
+      summary:
+        "Dream Siege is a fantasy action game about breaching a living fortress. I owned the combat and AI layer: a fully data-driven ability framework, telegraphed siege enemy behaviour, and a boss state machine that rebuilt itself for every phase. Combat had to stay readable with forty enemies on screen, so every attack owns a fixed frame window, a colour-coded telegraph and a single readable reaction.",
+      highlights: [
+        "Ability framework: every skill is a ScriptableObject with timing windows, cancel rules and hit volumes — designers add moves without touching code.",
+        "Enemy AI: utility-scored behaviour trees with perception, formation spacing and squad call-outs; sieges escalate by rule-set, not by spawn spam.",
+        "Combat feel: hit-stop, screen shake, knockback curves and camera lead tuned per weapon to make every impact land.",
+        "Performance: instanced VFX, pooled projectiles and a custom broadphase pass kept the 40-enemy siege at 60fps on console.",
+        "Debug overlay shipped in dev builds: hitbox viewer, AI blackboard dump, frame-time graph.",
+      ],
+      stats: [
+        { k: "Peak enemies", v: "40+" },
+        { k: "Frame budget", v: "16.6ms" },
+        { k: "Team size", v: "12" },
+        { k: "Engine", v: "Unity" },
+      ],
+      links: [{ label: "GitHub", href: "https://github.com/jamesestoque-dot/JAMESS" }],
+    },
+    {
+      id: "iron-gladiator",
+      title: "IRON GLADIATOR",
+      subtitle: "Armor Design",
+      featured: true,                 // renders as the big hero card, first in the grid
+      genre: "Action / Sci-Fi Fantasy",
+      year: "2023",
+      status: "SHIPPED",
+      role: "Combat Systems Lead",
+      art: "gladiator",
+      stack: ["Unity", "C#", "HLSL"],
+      c1: "#ffb020",
+      c2: "#ff3b6b",
+      tagline: "Armor Design — plating, heat, and the decisions you make when your rig starts failing.",
+      summary:
+        "Iron Gladiator is the flagship armour-design project: a gladiator arena brawler where heavy sci-fi exosuits are built plate by plate. I designed and programmed the armour system — every plate has its own durability, weight, heat state and handling profile, and the weapons you unlock change as the rig fails. The enemy AI reads your weakest plate and commits attacks to that side, so a fight becomes a conversation about damage management instead of a health bar race.",
+      highlights: [
+        "Armor design: 6 rigs built as modular plate sets — every plate carries durability, weight, heat and handling cost, so no two loadouts play the same.",
+        "Damage model: plating degrades, cracks, sparks and finally breaches; a breached plate leaks heat and permanently changes the moveset.",
+        "Thermal layer: firing and blocking build heat, which saps stamina and slows reactions — aggression has a meter you can read.",
+        "Adaptive enemy AI: reads the weakest plate and commits attacks to that side, forcing movement instead of trade.",
+        "Lock-on & dodge model: directional dodge with stamina, soft-lock magnetism and animation cancel windows.",
+        "Feedback & tooling: layered hit reactions, sparks on plate breach, material-specific audio, plus a heat-map overlay for armour balance and a replay viewer for encounter tuning.",
+      ],
+      stats: [
+        { k: "Armour plates", v: "18" },
+        { k: "Dodge window", v: "0.22s" },
+        { k: "Mechs designed", v: "6" },
+        { k: "Code", v: "C#" },
+      ],
+      links: [{ label: "GitHub", href: "https://github.com/jamesestoque-dot/JAMESS" }],
+    },
+    {
+      id: "road-to-fortune",
+      title: "ROAD TO FORTUNE",
+      genre: "Sci-Fi / Open World",
+      year: "2022",
+      status: "SHIPPED",
+      role: "Systems & World Lead",
+      art: "road",
+      stack: ["Unity", "C#", "JavaScript"],
+      c1: "#38ffb0",
+      c2: "#00e5ff",
+      tagline: "A procedural trade route that is different every run — and fair every time.",
+      summary:
+        "Road to Fortune is a sci-fi caravan journey across a generated frontier. I built the world generator and the economy that drives it: seeded biome grammar, road-network routing, settlement rules and a cargo economy that makes every run a different business. Because the world is procedural, fairness had to be designed in — loot tables, risk curves and the caravan event scheduler are all seeded and auditable from a single seed number.",
+      highlights: [
+        "World generator: weighted biome grammar + road-network routing, fully reproducible from one seed.",
+        "Economy & cargo: supply/demand simulation per settlement with price drift, contracts and risk events.",
+        "Procedural narrative: seeded encounter scheduler so pacing stays intact across every generated run.",
+        "Navigation: navmesh baking budget, streamed sectors, and safe fallbacks for degenerate terrain.",
+        "Determinism: replayable seeds plus a seed-inspector window for QA and bug reports.",
+      ],
+      stats: [
+        { k: "Seeded worlds", v: "∞" },
+        { k: "Sectors", v: "64" },
+        { k: "Settlements", v: "30+" },
+        { k: "Determinism", v: "100%" },
+      ],
+      links: [{ label: "GitHub", href: "https://github.com/jamesestoque-dot/JAMESS" }],
+    },
+    {
+      id: "neon-rift",
+      title: "NEON RIFT",
+      genre: "Sci-Fi / Twin-Stick Shooter",
+      year: "2021",
+      status: "PROTOTYPE",
+      role: "Solo Developer",
+      art: "rift",
+      stack: ["JavaScript", "Canvas 2D"],
+      c1: "#ff3b6b",
+      c2: "#b14bff",
+      tagline: "48-hour combat prototype that became the arcade mode in this site.",
+      summary:
+        "A twin-stick shooter prototype built to answer one question: can a wave-based arena feel fair without a designer hand-placing every spawn? The answer was a weighted spawn director plus a readable projectile language. Its core loop is the small canvas game playable in the ARCADE view of this portfolio — same code ideas, shrunk to 2D.",
+      highlights: [
+        "Spawn director: weighted budget per wave with anti-cluster rules so the screen never becomes unreadable.",
+        "Projectile language: colour + speed + size tell you what is lethal before it touches you.",
+        "Game feel pass: hit-stop, shake, and a dodge i-frame tuned in hours, not weeks.",
+      ],
+      stats: [
+        { k: "Build time", v: "48h" },
+        { k: "Systems", v: "11" },
+        { k: "Playable here", v: "YES" },
+      ],
+      links: [{ label: "Play in ARCADE", href: "#arcade" }],
+    },
+    {
+      id: "elderglen",
+      title: "ELDERGLEN",
+      genre: "Fantasy / Procgen Roguelite",
+      year: "2020",
+      status: "PROTOTYPE",
+      role: "Solo Developer",
+      art: "glen",
+      stack: ["Unity", "C#"],
+      c1: "#9dff5c",
+      c2: "#00e5ff",
+      tagline: "Seeded forests, hand-tuned difficulty, zero hand-placed content.",
+      summary:
+        "A roguelite slice built to stress-test procedural world assembly. Forest, ruins, hazards and a boss are all generated from a room grammar, yet the difficulty curve is hand-tuned per depth so a random seed never produces a boring or unfair run.",
+      highlights: [
+        "Room grammar: weighted connectors guarantee a path while keeping layout variety.",
+        "Difficulty director: per-depth budget that scales spawn pressure, not raw enemy health.",
+        "Content pipeline: one table drives biome props, enemy mixes and loot tables.",
+      ],
+      stats: [
+        { k: "Room types", v: "24" },
+        { k: "Depths", v: "12" },
+        { k: "Assets drawn in code", v: "All" },
+      ],
+      links: [],
+    },
+  ],
+
+  /* ---------------------------------------------------------------------
+     CONTACT — email is used for the mailto link and the copy button
+     --------------------------------------------------------------------- */
+  contact: {
+    email: "james_estoque@sjp2cd.edu.ph",
+    github: "https://github.com/jamesestoque-dot/JAMESS",
+    githubLabel: "github.com/jamesestoque-dot",
+    response: "Usually replies within 24 hours",
+    subjects: ["Contract work", "Full-time role", "Collaboration", "Just saying hi"],
+    form: true, // true = show the built-in message composer (opens your mail app)
+  },
+};
+
+/* ---------------------------------------------------------------------------
+   ARCADE CONFIG — difficulty, colours and the arcade game text.
+   --------------------------------------------------------------------------- */
+const ARCADE = {
+  title: "NEON RIFT // COMBAT PROTOTYPE",
+  blurb:
+    "Dodge, shoot, survive. Waves escalate, a heavy unit shows up every fifth wave, and every shot is on you. Keyboard: WASD / arrows to move — the ship auto-fires. On touch: drag anywhere on the arena.",
+  colors: {
+    player: "#00e5ff",
+    playerBullet: "#b8fbff",
+    grunt: "#ff3b6b",
+    dart: "#ffb020",
+    brute: "#b14bff",
+    boss: "#ff2e63",
+    hud: "#8ef7ff",
+  },
+  startLives: 3,
+  playerSpeed: 340,       // logical px / second
+  playerRadius: 13,
+  fireInterval: 0.15,     // seconds between shots
+  bulletSpeed: 780,
+  invulnAfterHit: 1.6,    // seconds of mercy after a hit
+  waveBreak: 2.2,         // seconds between waves
+  bossEvery: 5,
+};
+</script>
+
+<style>
+/* ==========================================================================
+   2. STYLES
+   ========================================================================== */
+
+/* ---- Design tokens: change these to re-skin the whole site ------------- */
+:root{
+  --bg:        #05070d;
+  --bg-2:      #080d18;
+  --bg-3:      #0d1424;
+  --line:      rgba(0,229,255,.18);
+  --line-soft: rgba(255,255,255,.08);
+  --text:      #e8f4ff;
+  --muted:     #8aa0bd;
+  --accent:    #00e5ff;
+  --accent-2:  #7a5cff;
+  --accent-3:  #ffb020;
+  --danger:    #ff3b6b;
+  --glow:      0 0 18px rgba(0,229,255,.45);
+  --glow-lg:   0 0 60px rgba(0,229,255,.20);
+  --display: "Arial Black","Arial Bold",Gadget,"Segoe UI Black",Impact,system-ui,sans-serif;
+  --mono: ui-monospace,"Cascadia Mono",Consolas,"Courier New",monospace;
+  --pad: clamp(16px, 3.2vw, 34px);
+  --radius: 14px;
+  --ease: cubic-bezier(.22,.9,.28,1);
+}
+
+/* ---- Reset ------------------------------------------------------------- */
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 700px at 78% -10%, rgba(122,92,255,.16), transparent 60%),
+    radial-gradient(1000px 620px at 10% 108%, rgba(0,229,255,.12), transparent 62%),
+    var(--bg);
+  color:var(--text);
+  font-family:var(--mono);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg,canvas{ display:block; max-width:100%; }
+button,input,textarea,select{ font:inherit; color:inherit; }
+a{ color:var(--accent); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+::selection{ background:var(--accent); color:#001018; }
+
+/* ---- Global scanline + grain overlay ----------------------------------- */
+body::after{
+  content:"";
+  position:fixed; inset:0; z-index:900; pointer-events:none;
+  background:repeating-linear-gradient(180deg, rgba(255,255,255,.028) 0 1px, transparent 1px 3px);
+  mix-blend-mode:overlay;
+  opacity:.55;
+}
+
+/* ==========================================================================
+   TITLE SCREEN  (the "Press Start" screen)
+   ========================================================================== */
+#titleScreen{
+  position:fixed; inset:0; z-index:1000;
+  display:grid; place-items:center;
+  padding:24px;
+  background:
+    radial-gradient(900px 600px at 50% 40%, rgba(122,92,255,.18), transparent 65%),
+    linear-gradient(180deg,#04060c,#02040a 70%,#010206);
+  transition:opacity .6s var(--ease), visibility .6s;
+}
+#titleScreen.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+
+.title-grid{
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(0,229,255,.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,.10) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(circle at 50% 50%, #000 25%, transparent 78%);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 25%, transparent 78%);
+  animation:gridDrift 22s linear infinite;
+}
+@keyframes gridDrift{ to{ background-position:0 480px, 480px 0; } }
+
+#starfield{ position:absolute; inset:0; width:100%; height:100%; }
+
+.title-inner{
+  position:relative; z-index:2;
+  text-align:center; width:min(880px,100%);
+  display:grid; gap:18px; justify-items:center;
+}
+
+.mark-chip{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:7px 16px; border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(0,229,255,.06);
+  color:var(--accent);
+  font-size:12px; letter-spacing:.32em; text-transform:uppercase;
+  box-shadow:var(--glow);
+}
+
+.title-name{
+  margin:0;
+  font-family:var(--display);
+  font-weight:900;
+  font-size:clamp(2.3rem, 9.5vw, 6.2rem);
+  line-height:.92;
+  letter-spacing:-.02em;
+  text-transform:uppercase;
+  text-wrap:balance;
+}
+.title-name .l1{
+  display:block;
+  color:#a8e9ff; -webkit-text-fill-color:transparent;
+  background:linear-gradient(180deg,#ffffff 0%,#a8e9ff 45%,#00b8d6 100%);
+  -webkit-background-clip:text; background-clip:text;
+  filter:drop-shadow(0 0 24px rgba(0,229,255,.35));
+}
+.title-name .l2{
+  display:block;
+  font-size:.42em;
+  letter-spacing:.42em;
+  color:var(--accent-2);
+  -webkit-text-fill-color:currentColor;
+  filter:drop-shadow(0 0 18px rgba(122,92,255,.55));
+  margin-top:.28em;
+}
+.title-role{
+  margin:0; color:var(--muted);
+  font-size:clamp(.72rem,2.4vw,.95rem);
+  letter-spacing:.34em; text-transform:uppercase;
+}
+.title-tagline{
+  margin:0; color:var(--text); opacity:.75;
+  font-size:clamp(.72rem,2.2vw,.9rem);
+  letter-spacing:.08em;
+}
+
+/* Press Start button */
+.press-start{
+  position:relative;
+  margin-top:6px;
+  padding:18px 44px;
+  font-family:var(--display);
+  font-size:clamp(1rem,3.6vw,1.6rem);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#00121a;
+  background:linear-gradient(180deg,#9df6ff,#00e5ff 55%,#00a8c6);
+  border:0; border-radius:12px;
+  cursor:pointer;
+  box-shadow:0 0 0 1px rgba(0,229,255,.6), 0 12px 40px rgba(0,229,255,.28);
+  animation:startPulse 1.9s var(--ease) infinite;
+  transition:transform .18s var(--ease), box-shadow .18s var(--ease), filter .18s var(--ease);
+}
+.press-start:hover{ transform:translateY(-3px) scale(1.03); filter:brightness(1.08); }
+.press-start:active{ transform:translateY(0) scale(.99); }
+.press-start:focus-visible{ outline:3px solid var(--accent-3); outline-offset:4px; }
+@keyframes startPulse{
+  0%,100%{ box-shadow:0 0 0 1px rgba(0,229,255,.6), 0 12px 40px rgba(0,229,255,.22); }
+  50%    { box-shadow:0 0 0 1px rgba(0,229,255,.9), 0 12px 54px rgba(0,229,255,.48); }
+}
+.press-start small{
+  display:block; font-family:var(--mono);
+  font-size:.34em; letter-spacing:.24em; opacity:.72; margin-top:6px;
+}
+
+.title-hint{ color:var(--muted); font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; opacity:.6; }
+
+/* Boot terminal */
+#bootLog{
+  position:absolute; left:var(--pad); right:var(--pad); bottom:clamp(18px,5vh,44px);
+  z-index:3; margin:0 auto; max-width:880px;
+  min-height:8.4em;
+  font-size:clamp(.66rem,2.1vw,.8rem);
+  line-height:1.65; color:var(--accent);
+  text-align:left; text-shadow:0 0 12px rgba(0,229,255,.4);
+  opacity:0; transition:opacity .4s var(--ease);
+}
+#bootLog.on{ opacity:1; }
+#bootLog div{ white-space:pre; }
+#bootLog .ok{ color:var(--accent); }
+#bootLog .dim{ color:var(--muted); text-shadow:none; }
+#bootLog .caret{ color:var(--accent-3); animation:blink 1s steps(2) infinite; }
+@keyframes blink{ 50%{ opacity:0 } }
+
+/* ==========================================================================
+   APP SHELL
+   ========================================================================== */
+#app{ opacity:0; visibility:hidden; transition:opacity .7s var(--ease), visibility .7s; }
+#app.on{ opacity:1; visibility:visible; }
+
+/* Top bar */
+.topbar{
+  position:sticky; top:0; z-index:60;
+  display:flex; align-items:center; gap:14px;
+  padding:10px var(--pad);
+  background:rgba(5,7,13,.82);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft);
+}
+.brand{
+  display:flex; align-items:center; gap:12px;
+  font-family:var(--display); letter-spacing:.06em;
+  text-transform:uppercase; min-width:0;
+}
+.brand .mark{
+  display:grid; place-items:center;
+  width:38px; height:38px; flex:0 0 auto;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:linear-gradient(160deg, rgba(0,229,255,.18), rgba(122,92,255,.14));
+  color:var(--accent); font-size:.82rem; letter-spacing:.02em;
+  box-shadow:var(--glow);
+}
+.brand .nm{ font-size:.86rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.brand .rl{ display:block; font-family:var(--mono); font-size:.6rem; letter-spacing:.24em; color:var(--muted); }
+
+.topbar-spacer{ flex:1 1 auto; }
+.topbar-status{
+  display:none; align-items:center; gap:8px;
+  font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
+}
+.topbar-status .dot{
+  width:8px; height:8px; border-radius:50%;
+  background:#38ffb0; box-shadow:0 0 12px #38ffb0;
+  animation:blink 1.6s ease-in-out infinite;
+}
+.menu-btn{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:9px 14px; border-radius:10px;
+  border:1px solid var(--line);
+  background:rgba(0,229,255,.06);
+  color:var(--accent); cursor:pointer;
+  font-size:.72rem; letter-spacing:.2em; text-transform:uppercase;
+  transition:background .2s var(--ease), transform .2s var(--ease);
+}
+.menu-btn:hover{ background:rgba(0,229,255,.14); transform:translateY(-1px); }
+.menu-btn .bars{ display:grid; gap:3px; }
+.menu-btn .bars i{ display:block; width:16px; height:2px; background:var(--accent); }
+
+/* Layout: nav rail + content */
+.shell{
+  display:grid;
+  grid-template-columns:264px minmax(0,1fr);
+  min-height:calc(100vh - 60px);
+}
+@media (max-width:900px){ .shell{ grid-template-columns:1fr; } }
+
+/* Nav rail */
+.nav{
+  border-right:1px solid var(--line-soft);
+  padding:22px 14px;
+  position:sticky; top:60px; align-self:start;
+  max-height:calc(100vh - 60px); overflow:auto;
+}
+.nav-label{
+  font-size:.6rem; letter-spacing:.3em; color:var(--muted);
+  text-transform:uppercase; padding:0 10px 12px;
+}
+.nav-list{ list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+.nav-link{
+  width:100%; display:flex; align-items:center; gap:12px;
+  padding:12px 12px; border-radius:12px;
+  border:1px solid transparent; background:transparent;
+  text-align:left; cursor:pointer; color:var(--muted);
+  transition:background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+}
+.nav-link .code{
+  font-size:.62rem; letter-spacing:.1em; color:var(--accent-2);
+  border:1px solid var(--line); border-radius:6px; padding:2px 6px;
+  transition:color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.nav-link .txt{ display:grid; line-height:1.25; }
+.nav-link .txt b{ font-family:var(--display); font-size:.86rem; letter-spacing:.08em; color:inherit; }
+.nav-link .txt small{ font-size:.6rem; letter-spacing:.12em; opacity:.62; }
+.nav-link:hover{ background:rgba(0,229,255,.07); color:var(--text); transform:translateX(3px); }
+.nav-link[aria-current="true"]{
+  background:linear-gradient(90deg, rgba(0,229,255,.16), rgba(122,92,255,.08));
+  border-color:var(--line); color:#fff;
+  box-shadow:inset 0 0 22px rgba(0,229,255,.10);
+}
+.nav-link[aria-current="true"] .code{ color:var(--accent); box-shadow:var(--glow); }
+
+.nav-foot{
+  margin-top:22px; padding:14px 12px;
+  border:1px solid var(--line-soft); border-radius:12px;
+  background:rgba(255,255,255,.02);
+  font-size:.64rem; letter-spacing:.14em; color:var(--muted); text-transform:uppercase;
+}
+.nav-foot .row{ display:flex; justify-content:space-between; gap:8px; padding:3px 0; }
+
+/* Mobile: nav becomes a slide-down panel */
+@media (max-width:900px){
+  .nav{
+    position:fixed; z-index:70; left:0; right:0; top:59px;
+    max-height:none; border-right:0; border-bottom:1px solid var(--line);
+    background:rgba(5,7,13,.97);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    transform:translateY(-118%); transition:transform .38s var(--ease);
+    max-height:calc(100vh - 60px); overflow:auto;
+  }
+  .nav.open{ transform:translateY(0); }
+  .topbar-status{ display:none; }
+}
+@media (min-width:901px){ .menu-btn{ display:none; } }
+
+/* Content area */
+.content{ padding:var(--pad); min-width:0; }
+
+/* View wrapper */
+.view{ display:none; }
+.view.active{ display:block; animation:viewIn .5s var(--ease) both; }
+@keyframes viewIn{
+  from{ opacity:0; transform:translateY(16px); filter:blur(4px); }
+  to  { opacity:1; transform:none; filter:none; }
+}
+
+.view-head{
+  display:flex; align-items:flex-end; gap:16px; flex-wrap:wrap;
+  padding-bottom:16px; margin-bottom:26px;
+  border-bottom:1px solid var(--line-soft);
+}
+.view-head .idx{
+  font-family:var(--display); font-size:clamp(2.6rem,7vw,4.4rem); line-height:.8;
+  color:transparent; -webkit-text-stroke:1.5px var(--accent-2);
+  opacity:.85; text-shadow:0 0 26px rgba(122,92,255,.35);
+}
+.view-head h2{
+  margin:0; font-family:var(--display);
+  font-size:clamp(1.35rem,4.6vw,2.1rem);
+  letter-spacing:.04em; text-transform:uppercase;
+}
+.view-head p{ margin:4px 0 0; color:var(--muted); font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; }
+.view-head .spacer{ flex:1 1 auto; }
+
+/* ==========================================================================
+   SECTION: PROJECTS
+   ========================================================================== */
+.project-grid{
+  display:grid; gap:20px;
+  grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
+}
+.project-card{
+  position:relative; overflow:hidden;
+  border:1px solid var(--line-soft); border-radius:var(--radius);
+  background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  cursor:pointer; text-align:left; padding:0; color:inherit; width:100%;
+  transition:transform .38s var(--ease), border-color .38s var(--ease), box-shadow .38s var(--ease);
+  will-change:transform;
+}
+.project-card::before{ /* hover glow frame */
+  content:""; position:absolute; inset:-1px; border-radius:inherit; padding:1px;
+  background:conic-gradient(from var(--a,0deg), transparent 0 62%, var(--c1,#00e5ff) 78%, var(--c2,#7a5cff) 92%, transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  opacity:0; transition:opacity .38s var(--ease);
+  pointer-events:none;
+}
+.project-card:hover{ transform:translateY(-8px); box-shadow:0 24px 60px rgba(0,0,0,.55), var(--glow-lg); }
+.project-card:hover::before{ opacity:1; animation:spin 3.4s linear infinite; }
+@keyframes spin{ to{ --a:360deg; } }
+@property --a{ syntax:'<angle>'; initial-value:0deg; inherits:false; }
+
+/* fallback for browsers without @property: a simple static hover frame */
+.project-card:hover{ border-color:rgba(0,229,255,.5); }
+
+.card-art{ position:relative; display:block; aspect-ratio:16/9; overflow:hidden; background:#04060c; }
+.card-art svg{ width:100%; height:100%; transition:transform .6s var(--ease); }
+.project-card:hover .card-art svg{ transform:scale(1.07); }
+.card-art .sheen{
+  position:absolute; inset:0;
+  background:linear-gradient(115deg, transparent 35%, rgba(255,255,255,.16) 48%, transparent 60%);
+  transform:translateX(-120%); transition:transform .8s var(--ease);
+}
+.project-card:hover .card-art .sheen{ transform:translateX(120%); }
+.card-art .badge{
+  position:absolute; top:10px; left:10px;
+  padding:4px 10px; border-radius:999px;
+  font-size:.58rem; letter-spacing:.2em; font-weight:700;
+  background:rgba(3,6,12,.78); border:1px solid var(--line);
+  color:var(--accent-3);
+}
+.card-art .badge.shipped{ color:#38ffb0; }
+.card-art .badge.gold{
+  color:#0a0508; background:linear-gradient(180deg,#ffd479,#ffb020);
+  border-color:transparent; font-weight:800;
+  box-shadow:0 0 22px rgba(255,176,32,.5);
+}
+.card-art .year{
+  position:absolute; bottom:10px; right:10px;
+  font-size:.62rem; letter-spacing:.2em; color:var(--muted);
+}
+.card-art .stack{
+  position:absolute; bottom:10px; left:10px; display:flex; gap:6px; flex-wrap:wrap;
+}
+.card-art .stack span{
+  font-size:.55rem; letter-spacing:.14em; text-transform:uppercase;
+  padding:3px 8px; border-radius:6px;
+  background:rgba(3,6,12,.75); border:1px solid var(--line-soft); color:var(--muted);
+}
+
+.card-body{ padding:16px 16px 18px; display:grid; gap:8px; }
+.card-body h3{
+  margin:0; font-family:var(--display); font-size:1.05rem; letter-spacing:.05em; text-transform:uppercase;
+  transition:color .25s var(--ease);
+}
+.project-card:hover h3{ color:var(--accent); }
+.card-body .genre{ font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+.card-body .tag{
+  display:block; margin:0;
+  font-size:.82rem; color:rgba(232,244,255,.76);
+}
+
+/* ---- Featured / hero project card (Iron Gladiator — Armor Design) ---- */
+.project-card.featured{ grid-column:1 / -1; }
+.project-card.featured .card-art{ aspect-ratio:32/9; }
+.project-card.featured .card-art svg{ filter:saturate(1.1); }
+.project-card.featured .card-body{ padding:22px clamp(18px,3vw,30px) 24px; gap:10px; }
+.project-card.featured h3{
+  font-size:clamp(1.5rem,5.2vw,2.7rem);
+  line-height:1.02; letter-spacing:.02em;
+}
+.project-card.featured h3 .sub{
+  color:var(--accent-3);
+  text-shadow:0 0 22px rgba(255,176,32,.45);
+}
+.project-card.featured .genre{ color:var(--accent); }
+.project-card.featured .tag{ font-size:.95rem; max-width:78ch; }
+.project-card.featured .feat-note{
+  font-size:.8rem; color:var(--muted);
+  padding-left:14px; border-left:2px solid var(--accent-2);
+}
+.project-card.featured .card-cta{ font-size:.72rem; margin-top:6px; }
+@media (max-width:720px){
+  .project-card.featured .card-art{ aspect-ratio:16/9; }
+}
+.card-cta{
+  margin-top:4px; display:inline-flex; align-items:center; gap:8px;
+  font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent);
+}
+.card-cta .arrow{ transition:transform .3s var(--ease); }
+.project-card:hover .card-cta .arrow{ transform:translateX(5px); }
+
+/* ==========================================================================
+   PROJECT DETAIL MODAL
+   ========================================================================== */
+.modal{
+  position:fixed; inset:0; z-index:800;
+  display:grid; place-items:center; padding:clamp(0px,3vw,28px);
+  visibility:hidden; opacity:0; transition:opacity .35s var(--ease), visibility .35s;
+}
+.modal.open{ visibility:visible; opacity:1; }
+.modal-backdrop{
+  position:absolute; inset:0; background:rgba(2,4,9,.82);
+  backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);
+}
+.modal-card{
+  position:relative; z-index:2;
+  width:min(960px,100%); max-height:min(88vh,900px); overflow:auto;
+  border:1px solid var(--line); border-radius:18px;
+  background:linear-gradient(180deg,#0a1120,#060a12);
+  box-shadow:0 40px 120px rgba(0,0,0,.7), var(--glow-lg);
+  transform:translateY(24px) scale(.97);
+  transition:transform .4s var(--ease);
+}
+.modal.open .modal-card{ transform:none; }
+.modal-card::-webkit-scrollbar{ width:10px; }
+.modal-card::-webkit-scrollbar-thumb{ background:rgba(0,229,255,.35); border-radius:99px; }
+
+.modal-art{ position:relative; aspect-ratio:21/8; overflow:hidden; border-bottom:1px solid var(--line-soft); }
+.modal-art svg{ width:100%; height:100%; }
+.modal-close{
+  position:absolute; top:12px; right:12px; z-index:3;
+  width:40px; height:40px; border-radius:50%;
+  border:1px solid var(--line); background:rgba(3,6,12,.75);
+  color:var(--accent); font-size:1.1rem; line-height:1; cursor:pointer;
+  transition:transform .2s var(--ease), background .2s var(--ease);
+}
+.modal-close:hover{ transform:rotate(90deg); background:rgba(0,229,255,.16); }
+.modal-body{ padding:clamp(18px,3.4vw,34px); display:grid; gap:18px; }
+.modal-title{ display:grid; gap:6px; }
+.modal-title h3{
+  margin:0; font-family:var(--display);
+  font-size:clamp(1.5rem,5vw,2.5rem); letter-spacing:.03em; text-transform:uppercase;
+  text-shadow:var(--glow);
+}
+.modal-title h3 .sub{ color:var(--accent-3); text-shadow:0 0 26px rgba(255,176,32,.5); }
+.modal-meta{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{
+  font-size:.6rem; letter-spacing:.18em; text-transform:uppercase;
+  padding:5px 11px; border-radius:999px;
+  border:1px solid var(--line); background:rgba(0,229,255,.07); color:var(--accent);
+}
+.chip.ghost{ color:var(--muted); border-color:var(--line-soft); background:rgba(255,255,255,.03); }
+.chip.gold{ color:var(--accent-3); border-color:rgba(255,176,32,.35); background:rgba(255,176,32,.08); }
+
+.stat-row{ display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); }
+.stat-box{
+  padding:12px 14px; border-radius:12px;
+  border:1px solid var(--line-soft); background:rgba(255,255,255,.03);
+}
+.stat-box b{
+  display:block; font-family:var(--display); font-size:1.2rem; color:var(--accent); letter-spacing:.04em;
+}
+.stat-box span{ font-size:.58rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+
+.modal-section h4{
+  margin:0 0 10px; font-family:var(--display);
+  font-size:.8rem; letter-spacing:.26em; text-transform:uppercase; color:var(--muted);
+  display:flex; align-items:center; gap:10px;
+}
+.modal-section h4::after{ content:""; flex:1; height:1px; background:var(--line-soft); }
+.modal-section p{ margin:0; color:rgba(232,244,255,.85); font-size:.92rem; }
+.bullets{ list-style:none; margin:0; padding:0; display:grid; gap:9px; }
+.bullets li{
+  position:relative; padding-left:26px; font-size:.88rem; color:rgba(232,244,255,.82);
+}
+.bullets li::before{
+  content:">"; position:absolute; left:0; top:-1px;
+  color:var(--accent); font-weight:700;
+}
+.modal-links{ display:flex; gap:10px; flex-wrap:wrap; }
+.btn{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:12px 20px; border-radius:11px; cursor:pointer;
+  font-family:var(--display); font-size:.76rem; letter-spacing:.16em; text-transform:uppercase;
+  border:1px solid var(--line); background:rgba(0,229,255,.08); color:var(--accent);
+  transition:transform .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
+}
+.btn:hover{ transform:translateY(-2px); background:rgba(0,229,255,.18); box-shadow:var(--glow); text-decoration:none; }
+.btn.solid{ background:linear-gradient(180deg,#9df6ff,#00c2dd); color:#00121a; border-color:transparent; }
+.btn.solid:hover{ filter:brightness(1.06); }
+.btn.ghost{ color:var(--muted); background:rgba(255,255,255,.03); border-color:var(--line-soft); }
+.btn.ghost:hover{ color:var(--text); box-shadow:none; }
+
+/* ==========================================================================
+   SECTION: SKILLS
+   ========================================================================== */
+.skill-groups{ display:grid; gap:26px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); }
+.skill-group{
+  padding:18px; border-radius:var(--radius);
+  border:1px solid var(--line-soft); background:rgba(255,255,255,.025);
+}
+.skill-group h4{
+  margin:0 0 16px; display:flex; align-items:center; gap:10px;
+  font-family:var(--display); font-size:.78rem; letter-spacing:.26em; text-transform:uppercase; color:var(--accent);
+}
+.skill-group h4::before{
+  content:""; width:8px; height:8px; background:var(--accent-2);
+  transform:rotate(45deg); box-shadow:0 0 12px var(--accent-2);
+}
+.skill{ margin-bottom:16px; }
+.skill:last-child{ margin-bottom:0; }
+.skill-top{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+.skill-name{ font-size:.8rem; letter-spacing:.06em; }
+.skill-val{ font-size:.7rem; color:var(--accent); letter-spacing:.1em; }
+.skill-note{ font-size:.66rem; color:var(--muted); margin-top:5px; opacity:.85; }
+.bar{
+  margin-top:7px; height:9px; border-radius:99px; overflow:hidden;
+  background:rgba(255,255,255,.06); border:1px solid var(--line-soft);
+  position:relative;
+}
+.bar span{
+  display:block; height:100%; width:0;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--accent-2),var(--accent));
+  box-shadow:0 0 16px rgba(0,229,255,.6);
+  transition:width 1.1s var(--ease);
+  position:relative;
+}
+.bar span::after{ /* moving highlight */
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+  transform:translateX(-100%);
+  animation:shine 2.6s var(--ease) infinite;
+  animation-delay:var(--d,0s);
+}
+@keyframes shine{ 60%,100%{ transform:translateX(100%); } }
+
+/* ==========================================================================
+   SECTION: ABOUT
+   ========================================================================== */
+.about-wrap{ display:grid; gap:26px; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); }
+@media (max-width:980px){ .about-wrap{ grid-template-columns:1fr; } }
+
+.panel{
+  padding:clamp(16px,2.6vw,26px); border-radius:var(--radius);
+  border:1px solid var(--line-soft); background:rgba(255,255,255,.025);
+}
+.panel h3{
+  margin:0 0 14px; font-family:var(--display);
+  font-size:clamp(1rem,3vw,1.35rem); letter-spacing:.05em; text-transform:uppercase;
+}
+.panel h3 .accent{ color:var(--accent); }
+.bio p{ margin:0 0 14px; color:rgba(232,244,255,.85); font-size:.94rem; }
+.bio p:last-child{ margin-bottom:0; }
+.bio strong{ color:var(--accent); font-weight:700; }
+
+.traits{ display:flex; flex-wrap:wrap; gap:9px; margin-top:18px; }
+.traits span{
+  font-size:.62rem; letter-spacing:.2em; text-transform:uppercase;
+  padding:6px 12px; border-radius:999px;
+  border:1px solid var(--line); background:rgba(0,229,255,.06); color:var(--accent);
+}
+
+.counter-grid{ display:grid; gap:12px; grid-template-columns:repeat(2,1fr); }
+@media (max-width:520px){ .counter-grid{ grid-template-columns:1fr; } }
+.counter{
+  padding:16px 14px; border-radius:12px; text-align:center;
+  border:1px solid var(--line-soft);
+  background:linear-gradient(180deg, rgba(0,229,255,.07), rgba(122,92,255,.05));
+}
+.counter b{
+  display:block; font-family:var(--display);
+  font-size:clamp(1.5rem,5.4vw,2.1rem); line-height:1;
+  color:#9df6ff; -webkit-text-fill-color:transparent;
+  background:linear-gradient(180deg,#fff,#9df6ff);
+  -webkit-background-clip:text; background-clip:text;
+  filter:drop-shadow(0 0 14px rgba(0,229,255,.4));
+}
+.counter span{ font-size:.55rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+
+.timeline{ list-style:none; margin:0; padding:0; display:grid; gap:0; }
+.timeline li{
+  position:relative; padding:0 0 22px 26px;
+  border-left:1px solid var(--line);
+}
+.timeline li:last-child{ padding-bottom:0; border-left-color:transparent; }
+.timeline li::before{
+  content:""; position:absolute; left:-6px; top:4px;
+  width:11px; height:11px; border-radius:50%;
+  background:var(--bg-3); border:1px solid var(--accent);
+  box-shadow:0 0 12px rgba(0,229,255,.7);
+}
+.timeline .when{ font-size:.6rem; letter-spacing:.2em; color:var(--accent-3); text-transform:uppercase; }
+.timeline .role{ font-family:var(--display); font-size:.9rem; letter-spacing:.06em; text-transform:uppercase; margin:3px 0 2px; }
+.timeline .org{ font-size:.66rem; letter-spacing:.16em; color:var(--accent-2); text-transform:uppercase; }
+.timeline .note{ font-size:.78rem; color:rgba(232,244,255,.72); margin-top:4px; }
+
+.stack-list{ display:grid; gap:8px; }
+.stack-list div{
+  display:flex; justify-content:space-between; gap:12px;
+  padding:9px 12px; border-radius:10px;
+  border:1px solid var(--line-soft); background:rgba(255,255,255,.02);
+  font-size:.74rem; letter-spacing:.1em;
+}
+.stack-list div span{ color:var(--muted); font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; }
+.stack-list div b{ color:var(--accent); font-weight:700; }
+
+/* ==========================================================================
+   SECTION: ARCADE
+   ========================================================================== */
+.arcade-wrap{ display:grid; gap:18px; }
+.arcade-frame{
+  position:relative; border-radius:var(--radius); overflow:hidden;
+  border:1px solid var(--line);
+  background:#03060c;
+  box-shadow:0 30px 80px rgba(0,0,0,.6), inset 0 0 60px rgba(0,229,255,.06);
+}
+#game{ width:100%; height:auto; aspect-ratio:16/9; touch-action:none; cursor:crosshair; }
+.game-overlay{
+  position:absolute; inset:0; z-index:3;
+  display:grid; place-items:center; text-align:center; gap:14px;
+  padding:20px;
+  background:radial-gradient(600px 400px at 50% 50%, rgba(3,6,12,.72), rgba(3,6,12,.94));
+  transition:opacity .3s var(--ease), visibility .3s;
+}
+.game-overlay.hide{ opacity:0; visibility:hidden; }
+.game-overlay h3{
+  margin:0; font-family:var(--display); font-size:clamp(1.3rem,5.4vw,2.2rem);
+  letter-spacing:.1em; text-transform:uppercase; text-shadow:var(--glow);
+}
+.game-overlay p{ margin:0; color:var(--muted); font-size:.8rem; max-width:52ch; letter-spacing:.06em; }
+.game-overlay .big-score{
+  font-family:var(--display); font-size:clamp(1.8rem,8vw,3rem); color:var(--danger);
+  text-shadow:0 0 30px rgba(255,59,107,.6);
+}
+.arcade-hud{
+  display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+  padding:12px 14px; border-radius:12px;
+  border:1px solid var(--line-soft); background:rgba(255,255,255,.03);
+}
+.hud-cell{ display:grid; gap:2px; min-width:88px; }
+.hud-cell span{ font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+.hud-cell b{ font-family:var(--display); font-size:1rem; color:var(--accent); letter-spacing:.06em; }
+.arcade-actions{ margin-left:auto; display:flex; gap:10px; flex-wrap:wrap; }
+.arcade-actions .btn{ padding:10px 16px; font-size:.68rem; }
+.arcade-note{ font-size:.72rem; color:var(--muted); letter-spacing:.08em; }
+.arcade-note kbd{
+  display:inline-block; padding:2px 7px; border-radius:5px; font-family:var(--mono); font-size:.68rem;
+  border:1px solid var(--line); background:rgba(0,229,255,.08); color:var(--accent);
+}
+
+/* ==========================================================================
+   SECTION: CONTACT
+   ========================================================================== */
+.contact-wrap{ display:grid; gap:20px; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); }
+@media (max-width:980px){ .contact-wrap{ grid-template-columns:1fr; } }
+
+.comms{
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  padding:22px; border-radius:var(--radius);
+  border:1px solid var(--line);
+  background:linear-gradient(135deg, rgba(0,229,255,.10), rgba(122,92,255,.07));
+  box-shadow:var(--glow-lg);
+}
+.comms .lbl{ font-size:.6rem; letter-spacing:.28em; text-transform:uppercase; color:var(--muted); }
+.comms a.mail{
+  font-family:var(--display); letter-spacing:.02em;
+  font-size:clamp(.95rem,3.4vw,1.5rem); word-break:break-all;
+  color:#fff; text-shadow:0 0 22px rgba(0,229,255,.45);
+  transition:color .2s var(--ease);
+}
+.comms a.mail:hover{ color:var(--accent); text-decoration:none; }
+.copy-btn{
+  margin-left:auto; padding:10px 14px; border-radius:10px; cursor:pointer;
+  border:1px solid var(--line); background:rgba(3,6,12,.5); color:var(--accent);
+  font-size:.62rem; letter-spacing:.2em; text-transform:uppercase;
+  transition:background .2s var(--ease), transform .2s var(--ease);
+}
+.copy-btn:hover{ background:rgba(0,229,255,.16); transform:translateY(-2px); }
+.copy-btn.done{ color:#38ffb0; border-color:rgba(56,255,176,.4); }
+
+.link-grid{ display:grid; gap:12px; }
+.link-tile{
+  display:flex; align-items:center; gap:14px;
+  padding:16px 18px; border-radius:12px; cursor:pointer;
+  border:1px solid var(--line-soft); background:rgba(255,255,255,.03);
+  color:var(--text); text-align:left; width:100%;
+  transition:transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease);
+}
+.link-tile:hover{
+  transform:translateY(-3px); border-color:var(--line); background:rgba(0,229,255,.08);
+  box-shadow:var(--glow); text-decoration:none;
+}
+.link-tile .ic{
+  width:38px; height:38px; flex:0 0 auto; display:grid; place-items:center; border-radius:10px;
+  border:1px solid var(--line); background:rgba(0,229,255,.08); color:var(--accent); font-size:.8rem;
+}
+.link-tile b{ display:block; font-family:var(--display); font-size:.85rem; letter-spacing:.08em; text-transform:uppercase; }
+.link-tile small{ font-size:.68rem; color:var(--muted); word-break:break-all; }
+
+.form{ display:grid; gap:12px; }
+.field{ display:grid; gap:6px; }
+.field label{ font-size:.58rem; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
+.field input, .field textarea, .field select{
+  padding:12px 14px; border-radius:10px; width:100%;
+  border:1px solid var(--line-soft); background:rgba(3,6,12,.55); color:var(--text);
+  font-size:.86rem; transition:border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.field input:focus, .field textarea:focus, .field select:focus{
+  outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,229,255,.14);
+}
+.field textarea{ min-height:110px; resize:vertical; }
+.subjects{ display:flex; flex-wrap:wrap; gap:8px; }
+.subject{
+  padding:7px 13px; border-radius:999px; cursor:pointer;
+  border:1px solid var(--line-soft); background:rgba(255,255,255,.03); color:var(--muted);
+  font-size:.62rem; letter-spacing:.16em; text-transform:uppercase;
+  transition:all .2s var(--ease);
+}
+.subject:hover{ color:var(--text); border-color:var(--line); }
+.subject[aria-pressed="true"]{
+  color:#00121a; background:linear-gradient(180deg,#9df6ff,#00c2dd); border-color:transparent;
+}
+.form .btn{ justify-content:center; }
+
+/* Footer */
+.foot{
+  margin-top:34px; padding-top:18px;
+  border-top:1px solid var(--line-soft);
+  display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between;
+  font-size:.6rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);
+}
+
+/* Toast (copy email feedback) */
+.toast{
+  position:fixed; left:50%; bottom:26px; transform:translate(-50%,26px);
+  z-index:950; padding:12px 20px; border-radius:10px;
+  border:1px solid var(--line); background:rgba(6,12,22,.95); color:var(--accent);
+  font-size:.68rem; letter-spacing:.2em; text-transform:uppercase;
+  box-shadow:var(--glow); opacity:0; visibility:hidden;
+  transition:opacity .3s var(--ease), transform .3s var(--ease), visibility .3s;
+}
+.toast.show{ opacity:1; visibility:visible; transform:translate(-50%,0); }
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ==========================================================================
+     3. MARKUP
+     ========================================================================== -->
+
+<!-- ---------- TITLE SCREEN : "PRESS START" ---------- -->
+<section id="titleScreen" aria-label="Title screen">
+  <div class="title-grid" aria-hidden="true"></div>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <div class="title-inner">
+    <span class="mark-chip" id="markChip">JVE // ONLINE</span>
+
+    <h1 class="title-name">
+      <span class="l1" id="titleName">James Jose V. Estoque</span>
+      <span class="l2" id="titleRole">Lead Game Developer</span>
+    </h1>
+
+    <p class="title-tagline" id="titleTagline">Combat systems · Enemy AI · Procedural worlds</p>
+    <p class="title-role" id="titleLocation">Philippines // Remote-friendly</p>
+
+    <button class="press-start" id="pressStart" type="button">
+      Press Start
+      <small>click · or hit enter</small>
+    </button>
+
+    <p class="title-hint" id="titleHint">action · fantasy · sci-fi</p>
+  </div>
+
+  <!-- fake boot log, typed out after pressing start -->
+  <pre id="bootLog" aria-live="polite"></pre>
+</section>
+
+<!-- ---------- THE ACTUAL WEBSITE ---------- -->
+<div id="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="mark" id="barMark">JVE</span>
+      <span class="nm">
+        <span id="barName">James Estoque</span>
+        <span class="rl" id="barRole">Lead Game Developer</span>
+      </span>
+    </div>
+    <span class="topbar-spacer"></span>
+    <span class="topbar-status"><i class="dot"></i> Available for work</span>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav">
+      Menu <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </header>
+
+  <div class="shell">
+    <!-- MAIN MENU -->
+    <nav class="nav" id="nav" aria-label="Main menu">
+      <p class="nav-label">// Main menu</p>
+      <ul class="nav-list" id="navList"><!-- built from SITE.nav --></ul>
+      <div class="nav-foot">
+        <div class="row"><span>Build</span><b id="footVersion">1.0.0</b></div>
+        <div class="row"><span>Engine</span><b>Unity / C#</b></div>
+        <div class="row"><span>Status</span><b style="color:#38ffb0">Open to work</b></div>
+      </div>
+    </nav>
+
+    <main class="content">
+      <!-- ---------- 01 PROJECTS ---------- -->
+      <section class="view" id="view-projects" aria-label="Projects">
+        <div class="view-head">
+          <span class="idx">01</span>
+          <div>
+            <h2>Projects</h2>
+            <p>Featured: Iron Gladiator — Armor Design. Click any card for the full breakdown.</p>
+          </div>
+          <span class="spacer"></span>
+          <span class="chip gold" id="projectCount">0 titles</span>
+        </div>
+        <div class="project-grid" id="projectGrid"><!-- built from SITE.projects --></div>
+      </section>
+
+      <!-- ---------- 02 SKILLS ---------- -->
+      <section class="view" id="view-skills" aria-label="Skills">
+        <div class="view-head">
+          <span class="idx">02</span>
+          <div>
+            <h2>Skills</h2>
+            <p>Engine, code, systems &amp; pipeline — self-assessed and honestly scored</p>
+          </div>
+        </div>
+        <div class="skill-groups" id="skillGroups"><!-- built from SITE.skills --></div>
+      </section>
+
+      <!-- ---------- 03 ABOUT ---------- -->
+      <section class="view" id="view-about" aria-label="About">
+        <div class="view-head">
+          <span class="idx">03</span>
+          <div>
+            <h2>About</h2>
+            <p id="aboutHeading">Programmer turned game developer</p>
+          </div>
+        </div>
+
+        <div class="about-wrap">
+          <div style="display:grid; gap:20px; align-content:start">
+            <div class="panel bio">
+              <h3>The short <span class="accent">version</span></h3>
+              <div id="bioText"><!-- built from SITE.about --></div>
+              <div class="traits" id="traitList"></div>
+            </div>
+            <div class="panel">
+              <h3>Career <span class="accent">log</span></h3>
+              <ul class="timeline" id="timeline"></ul>
+            </div>
+          </div>
+
+          <div style="display:grid; gap:20px; align-content:start">
+            <div class="panel">
+              <h3>By the <span class="accent">numbers</span></h3>
+              <div class="counter-grid" id="statGrid"></div>
+            </div>
+            <div class="panel">
+              <h3>Core <span class="accent">stack</span></h3>
+              <div class="stack-list">
+                <div><b>Unity</b><span>Engine</span></div>
+                <div><b>C#</b><span>Language</span></div>
+                <div><b>JavaScript</b><span>Tooling / web</span></div>
+                <div><b>Behaviour Trees</b><span>Enemy AI</span></div>
+                <div><b>ScriptableObjects</b><span>Data-driven design</span></div>
+                <div><b>HLSL / VFX</b><span>Shaders &amp; juice</span></div>
+                <div><b>Git / CI</b><span>Pipeline</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- 04 ARCADE (the playable mini game) ---------- -->
+      <section class="view" id="view-arcade" aria-label="Arcade">
+        <div class="view-head">
+          <span class="idx">04</span>
+          <div>
+            <h2>Arcade</h2>
+            <p id="arcadeBlurb">Dodge, shoot, survive</p>
+          </div>
+          <span class="spacer"></span>
+          <span class="chip ghost">canvas 2d · vanilla js</span>
+        </div>
+
+        <div class="arcade-wrap">
+          <div class="arcade-frame">
+            <canvas id="game" width="960" height="540" aria-label="Playable shooter arena"></canvas>
+            <div class="game-overlay" id="gameOverlay">
+              <h3 id="ovTitle">Neon Rift</h3>
+              <p id="ovBody">Dodge, shoot, survive. Waves escalate and a heavy unit shows up every fifth wave.</p>
+              <div class="big-score" id="ovScore" style="display:none">0</div>
+              <button class="btn solid" id="ovBtn" type="button">Start Run</button>
+            </div>
+          </div>
+
+          <div class="arcade-hud">
+            <div class="hud-cell"><span>Score</span><b id="hudScore">0</b></div>
+            <div class="hud-cell"><span>Wave</span><b id="hudWave">0</b></div>
+            <div class="hud-cell"><span>Lives</span><b id="hudLives">3</b></div>
+            <div class="hud-cell"><span>Best</span><b id="hudBest">0</b></div>
+            <div class="arcade-actions">
+              <button class="btn" id="btnStart" type="button">Start</button>
+              <button class="btn ghost" id="btnPause" type="button">Pause</button>
+            </div>
+          </div>
+
+          <p class="arcade-note">
+            Move: <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> — the ship auto-fires.
+            Touch: drag anywhere inside the arena.
+            Pause: <kbd>P</kbd>. You have three lives and i-frames after every hit.
+          </p>
+        </div>
+      </section>
+
+      <!-- ---------- 05 CONTACT ---------- -->
+      <section class="view" id="view-contact" aria-label="Contact">
+        <div class="view-head">
+          <span class="idx">05</span>
+          <div>
+            <h2>Contact</h2>
+            <p>Open a channel — I answer everything</p>
+          </div>
+        </div>
+
+        <div class="contact-wrap">
+          <div style="display:grid; gap:20px; align-content:start">
+            <!-- working mailto link + copy button -->
+            <div class="comms">
+              <div style="min-width:0">
+                <span class="lbl">Direct email</span><br />
+                <a class="mail" id="mailLink" href="#">james_estoque@sjp2cd.edu.ph</a>
+              </div>
+              <button class="copy-btn" id="copyBtn" type="button">Copy</button>
+            </div>
+
+            <div class="panel">
+              <h3>Other <span class="accent">channels</span></h3>
+              <div class="link-grid" id="linkGrid"><!-- built from SITE.contact --></div>
+            </div>
+
+            <div class="panel">
+              <h3>Good fit for</h3>
+              <ul class="bullets">
+                <li><strong>Iron Gladiator — Armor Design:</strong> plating, heat and rig balance on a live action title</li>
+                <li>Combat / ability systems work on a live action title</li>
+                <li>Enemy AI that needs to be readable, not just clever</li>
+                <li>Procedural world tooling for a roguelite or open world</li>
+                <li>A lead who can own code review, builds and release</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- message composer: builds a mailto: link, no backend needed -->
+          <form class="panel form" id="mailForm" novalidate>
+            <h3>Compose a <span class="accent">transmission</span></h3>
+            <div class="field">
+              <label for="fSubject">Topic</label>
+              <div class="subjects" id="subjectList"></div>
+            </div>
+            <div class="field">
+              <label for="fName">Your name</label>
+              <input id="fName" name="name" type="text" autocomplete="name" placeholder="Who is writing?" />
+            </div>
+            <div class="field">
+              <label for="fEmail">Your email</label>
+              <input id="fEmail" name="email" type="email" autocomplete="email" placeholder="name@studio.com" />
+            </div>
+            <div class="field">
+              <label for="fMsg">Message</label>
+              <textarea id="fMsg" name="message" placeholder="Project, platform, timeline…"></textarea>
+            </div>
+            <button class="btn solid" id="sendBtn" type="submit">Open in mail app</button>
+            <p class="arcade-note" style="margin:0">
+              No server required — this composes the message and hands it to your mail client.
+            </p>
+          </form>
+        </div>
+
+        <footer class="foot">
+          <span id="footLeft">© James Jose V. Estoque</span>
+          <span id="footRight">Built with hand-written HTML / CSS / JS — no frameworks</span>
+        </footer>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- project detail modal (filled by JS) -->
+<div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card" id="modalCard"></div>
+</div>
+
+<!-- small toast used for "email copied" -->
+<div class="toast" id="toast" role="status" aria-live="polite">Copied to clipboard</div>
+
+<!-- ==========================================================================
+     4. ENGINE  —  all JavaScript for menus, views, modal, counters, arcade
+     ========================================================================== -->
+<script>
+/* ---------------------------------------------------------------------------
+   Small helpers
+   --------------------------------------------------------------------------- */
+const $  = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const rand  = (a, b) => a + Math.random() * (b - a);
+const pick  = (arr) => arr[(Math.random() * arr.length) | 0];
+
+/** Escape user-entered text before putting it into innerHTML. */
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, (c) => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+/* ---------------------------------------------------------------------------
+   4a. GENERATED PROJECT ARTWORK
+   No image files are used — every thumbnail is drawn as inline SVG using the
+   project's accent colours, so the whole thing stays in one file.
+   --------------------------------------------------------------------------- */
+const ART = {
+  /* A fortress under a siege of energy bolts */
+  siege(c1, c2) {
+    return `
+      <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Fortress artwork">
+        <defs>
+          <linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="${c1}" stop-opacity=".55"/>
+            <stop offset="1" stop-color="${c2}" stop-opacity=".15"/>
+          </linearGradient>
+          <linearGradient id="sg2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/>
+          </linearGradient>
+          <radialGradient id="sg3" cx=".5" cy=".5" r=".5">
+            <stop offset="0" stop-color="#fff" stop-opacity=".9"/>
+            <stop offset="1" stop-color="${c1}" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="320" height="180" fill="#04060c"/>
+        <g opacity=".5" stroke="${c1}" stroke-width=".6">
+          ${Array.from({ length: 18 }, (_, i) => `<line x1="0" y1="${i * 10}" x2="320" y2="${i * 10}"/>`).join('')}
+        </g>
+        <circle cx="252" cy="42" r="26" fill="url(#sg3)" opacity=".8"/>
+        <circle cx="252" cy="42" r="13" fill="none" stroke="${c1}" stroke-width="1.4"/>
+        <path d="M0 180 V120 H26 V96 H52 V120 H78 V86 H104 V120 H130 V100 H156 V120 H182 V92 H208 V120 H234 V104 H260 V120 H286 V98 H320 V180 Z" fill="url(#sg1)" stroke="${c1}" stroke-width="1.2"/>
+        <g fill="url(#sg2)">
+          <rect x="146" y="60" width="28" height="44"/><path d="M140 60 L160 38 L180 60 Z"/>
+        </g>
+        <g stroke="${c1}" stroke-width="1.6" stroke-linecap="round" opacity=".9">
+          <path d="M40 24 L120 84"/><path d="M90 18 L168 78"/><path d="M196 26 L150 62"/>
+        </g>
+        <g fill="${c1}"><circle cx="120" cy="84" r="2.4"/><circle cx="150" cy="62" r="3"/><circle cx="168" cy="78" r="2.2"/></g>
+        <g stroke="${c2}" stroke-width="1" opacity=".8"><path d="M18 40 L58 62"/><path d="M260 130 L300 108"/></g>
+      </svg>`;
+  },
+
+  /* A gladiator arena with an armoured helm and crossed blades */
+  gladiator(c1, c2) {
+    return `
+      <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Gladiator artwork">
+        <defs>
+          <radialGradient id="ga1" cx=".5" cy=".45" r=".55">
+            <stop offset="0" stop-color="${c1}" stop-opacity=".45"/>
+            <stop offset="1" stop-color="${c1}" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="ga2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/>
+          </linearGradient>
+        </defs>
+        <rect width="320" height="180" fill="#0a0508"/>
+        <rect width="320" height="180" fill="url(#ga1)"/>
+        <g stroke="${c1}" stroke-width=".7" opacity=".45">
+          <ellipse cx="160" cy="150" rx="130" ry="34" fill="none"/>
+          <ellipse cx="160" cy="150" rx="96" ry="25" fill="none"/>
+          <ellipse cx="160" cy="150" rx="62" ry="16" fill="none"/>
+        </g>
+        <g fill="none" stroke="${c1}" stroke-width="1.4" opacity=".8">
+          <path d="M0 34 H320"/><path d="M0 46 H320"/>
+        </g>
+        <g transform="translate(160 84)">
+          <path d="M-34 30 C-34 -6 -18 -26 0 -26 C18 -26 34 -6 34 30 Z" fill="url(#ga2)" opacity=".92"/>
+          <path d="M-34 30 C-34 -6 -18 -26 0 -26 C18 -26 34 -6 34 30 Z" fill="none" stroke="#fff" stroke-opacity=".35"/>
+          <path d="M-16 -8 H16 V6 H-16 Z" fill="#0a0508"/>
+          <rect x="-18" y="8" width="36" height="3.4" fill="#0a0508" opacity=".8"/>
+          <path d="M-30 -14 C-10 -30 10 -30 30 -14" fill="none" stroke="${c2}" stroke-width="2"/>
+        </g>
+        <g stroke="#fff" stroke-opacity=".8" stroke-width="1.6" stroke-linecap="round">
+          <path d="M74 132 L140 70"/><path d="M246 132 L180 70"/>
+        </g>
+        <g fill="${c2}"><circle cx="140" cy="70" r="2"/><circle cx="180" cy="70" r="2"/></g>
+        <g fill="${c1}" opacity=".8">
+          ${Array.from({ length: 22 }, (_, i) => `<circle cx="${(i * 71) % 320}" cy="${16 + ((i * 53) % 26)}" r="${i % 3 === 0 ? 1.6 : 0.9}"/>`).join('')}
+        </g>
+      </svg>`;
+  },
+
+  /* A long trade road heading to a distant sun-lit planet */
+  road(c1, c2) {
+    return `
+      <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Desert road artwork">
+        <defs>
+          <linearGradient id="rs1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#0a0d1a"/><stop offset="1" stop-color="${c2}" stop-opacity=".25"/>
+          </linearGradient>
+          <linearGradient id="rs2" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="${c1}" stop-opacity=".08"/><stop offset="1" stop-color="${c1}" stop-opacity=".55"/>
+          </linearGradient>
+        </defs>
+        <rect width="320" height="180" fill="url(#rs1)"/>
+        <circle cx="216" cy="52" r="30" fill="none" stroke="${c1}" stroke-width="1.6" opacity=".9"/>
+        <circle cx="216" cy="52" r="40" fill="none" stroke="${c1}" stroke-width=".6" opacity=".35"/>
+        <path d="M196 84 A20 20 0 0 1 236 84" fill="none" stroke="${c1}" stroke-width="1.2" opacity=".6"/>
+        <g fill="#fff" opacity=".7">
+          ${Array.from({ length: 30 }, (_, i) => `<circle cx="${(i * 97) % 320}" cy="${(i * 41) % 74}" r="${i % 4 === 0 ? 1.3 : 0.7}"/>`).join('')}
+        </g>
+        <path d="M0 180 L126 96 H194 L320 180 Z" fill="url(#rs2)"/>
+        <path d="M0 180 L126 96 H194 L320 180" fill="none" stroke="${c1}" stroke-width="1.2" opacity=".85"/>
+        <g stroke="${c2}" stroke-width="1" opacity=".5">
+          <path d="M84 180 L152 104"/><path d="M240 180 L168 104"/>
+        </g>
+        <g fill="${c1}">
+          <rect x="150" y="70" width="9" height="9" rx="1.5"/>
+          <rect x="162" y="64" width="7" height="7" rx="1.5"/>
+        </g>
+        <g stroke="${c1}" stroke-width="1" opacity=".35">
+          <path d="M40 128 L60 116"/><path d="M262 132 L286 120"/><path d="M20 148 L44 134"/>
+        </g>
+      </svg>`;
+  },
+
+  /* A collapsing neon rift with a lone ship */
+  rift(c1, c2) {
+    return `
+      <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Neon rift artwork">
+        <defs>
+          <linearGradient id="rr1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="${c2}"/><stop offset="1" stop-color="${c1}"/>
+          </linearGradient>
+        </defs>
+        <rect width="320" height="180" fill="#05040a"/>
+        <g opacity=".35" stroke="${c2}" stroke-width=".6">
+          ${Array.from({ length: 14 }, (_, i) => `<line x1="${i * 24}" y1="0" x2="${i * 24 - 40}" y2="180"/>`).join('')}
+        </g>
+        <ellipse cx="176" cy="90" rx="96" ry="52" fill="none" stroke="url(#rr1)" stroke-width="2.4" opacity=".9"/>
+        <ellipse cx="176" cy="90" rx="72" ry="38" fill="none" stroke="${c1}" stroke-width="1" opacity=".55"/>
+        <path d="M92 68 Q176 96 260 70" fill="none" stroke="#fff" stroke-width="1" opacity=".5"/>
+        <g transform="translate(120 96) rotate(-24)">
+          <path d="M-16 0 L10 -8 L18 0 L10 8 Z" fill="${c1}"/>
+          <path d="M-16 0 L-4 -4 L-4 4 Z" fill="#fff" opacity=".85"/>
+          <path d="M-8 0 L-46 0" stroke="${c1}" stroke-width="1.6" opacity=".5"/>
+        </g>
+        <g fill="${c1}" opacity=".9">
+          ${Array.from({ length: 12 }, (_, i) => `<circle cx="${20 + (i * 47) % 280}" cy="${20 + (i * 71) % 140}" r="1.4"/>`).join('')}
+        </g>
+      </svg>`;
+  },
+
+  /* A procedurally grown forest of glowing rune stones */
+  glen(c1, c2) {
+    return `
+      <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Enchanted glen artwork">
+        <defs>
+          <linearGradient id="ge1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#07130c"/><stop offset="1" stop-color="#02060a"/>
+          </linearGradient>
+        </defs>
+        <rect width="320" height="180" fill="url(#ge1)"/>
+        <g stroke="${c1}" stroke-width=".5" opacity=".35">
+          ${Array.from({ length: 12 }, (_, i) => `<path d="M${i * 28} 0 V180"/>`).join('')}
+        </g>
+        <g opacity=".95">
+          ${Array.from({ length: 9 }, (_, i) => {
+            const x = 20 + i * 34 + (i % 3) * 6;
+            const h = 34 + ((i * 17) % 40);
+            const y = 150 - h;
+            return `<g>
+              <path d="M${x - 9} 150 L${x} ${y} L${x + 9} 150 Z" fill="#0d1a16" stroke="${c1}" stroke-width="1.1" opacity=".9"/>
+              <path d="M${x} ${y - 8} L${x + 6} ${y - 2} L${x} ${y + 4} L${x - 6} ${y - 2} Z" fill="${c1}" opacity=".55"/>
+            </g>`;
+          }).join('')}
+        </g>
+        <ellipse cx="160" cy="150" rx="140" ry="26" fill="${c2}" opacity=".1"/>
+        <g fill="#fff" opacity=".55">
+          ${Array.from({ length: 18 }, (_, i) => `<circle cx="${(i * 83) % 320}" cy="${10 + (i * 57) % 90}" r="1"/>`).join('')}
+        </g>
+        <path d="M0 150 Q80 138 160 150 T320 150" fill="none" stroke="${c2}" stroke-width="1" opacity=".5"/>
+      </svg>`;
+  },
+};
+
+/** Returns the SVG markup for a project, falling back to a generic pattern. */
+function artSVG(p) {
+  const fn = ART[p.art] || ART.rift;
+  return fn(p.c1 || "#00e5ff", p.c2 || "#7a5cff");
+}
+
+/* ---------------------------------------------------------------------------
+   4b. BOOT THE SITE CONTENT INTO THE PAGE
+   --------------------------------------------------------------------------- */
+
+/* --- Brand / title screen --- */
+$("#markChip").textContent = SITE.brand.mark + " // ONLINE";
+$("#titleName").textContent  = SITE.brand.fullName;
+$("#titleRole").textContent  = SITE.brand.role;
+$("#titleTagline").textContent = SITE.brand.tagline;
+$("#titleLocation").textContent = SITE.brand.location;
+$("#titleHint").textContent = SITE.brand.availability;
+$("#barMark").textContent = SITE.brand.mark;
+$("#barName").textContent = SITE.brand.name;
+$("#barRole").textContent = SITE.brand.role;
+$("#aboutHeading").textContent = SITE.about.heading;
+$("#arcadeBlurb").textContent = ARCADE.blurb;
+$("#projectCount").textContent = SITE.projects.length + " titles";
+$("#footLeft").textContent = "© " + new Date().getFullYear() + " " + SITE.brand.fullName;
+$("#footVersion").textContent = "1.0.0";
+
+/* --- Main menu --- */
+const navList = $("#navList");
+navList.innerHTML = SITE.nav.map((n) => `
+  <li>
+    <button class="nav-link" type="button" data-view="${n.id}" aria-current="false">
+      <span class="code">${n.code}</span>
+      <span class="txt"><b>${n.label}</b><small>${n.hint}</small></span>
+    </button>
+  </li>`).join("");
+
+/* --- Project cards (the project flagged `featured: true` is rendered first,
+       full width, as the hero card) --- */
+const projectGrid = $("#projectGrid");
+const orderedProjects = SITE.projects.slice().sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+projectGrid.innerHTML = orderedProjects.map((p) => `
+  <button class="project-card${p.featured ? " featured" : ""}" type="button" data-project="${p.id}"
+          style="--c1:${p.c1}; --c2:${p.c2}">
+    <span class="card-art">
+      ${artSVG(p)}
+      <span class="sheen" aria-hidden="true"></span>
+      ${p.featured
+        ? `<span class="badge gold">★ Featured Project</span>`
+        : `<span class="badge ${p.status === "SHIPPED" ? "shipped" : ""}">${p.status}</span>`}
+      <span class="year">${p.year}</span>
+      <span class="stack">${(p.stack || []).slice(0, 3).map((s) => `<span>${s}</span>`).join("")}</span>
+    </span>
+    <span class="card-body">
+      <span class="genre">${p.genre}</span>
+      <h3>${p.title}${p.subtitle ? ` <span class="sub">— ${p.subtitle}</span>` : ""}</h3>
+      <span class="tag">${p.tagline}</span>
+      ${p.featured
+        ? `<span class="tag feat-note">${p.highlights[0]}</span>`
+        : ""}
+      <span class="card-cta">${p.featured ? "Open the armour design file" : "Open case file"} <span class="arrow">→</span></span>
+    </span>
+  </button>`).join("");
+
+/* --- Skills, grouped by their "group" field, bars start at 0 width --- */
+const skillWrap = $("#skillGroups");
+(function buildSkills() {
+  const groups = {};
+  SITE.skills.forEach((s) => { (groups[s.group] = groups[s.group] || []).push(s); });
+  skillWrap.innerHTML = Object.keys(groups).map((g) => `
+    <div class="skill-group">
+      <h4>${g}</h4>
+      ${groups[g].map((s, i) => `
+        <div class="skill">
+          <div class="skill-top">
+            <span class="skill-name">${s.name}</span>
+            <span class="skill-val" data-target="${s.level}">0%</span>
+          </div>
+          <div class="bar"><span data-level="${s.level}" style="--d:${i * 0.25}s"></span></div>
+          ${s.note ? `<div class="skill-note">${s.note}</div>` : ""}
+        </div>`).join("")}
+    </div>`).join("");
+})();
+
+/* --- About: bio, traits, timeline, stat counters --- */
+$("#bioText").innerHTML = SITE.about.paragraphs.map((p) => `<p>${p}</p>`).join("");
+$("#traitList").innerHTML = SITE.about.traits.map((t) => `<span>${t}</span>`).join("");
+$("#timeline").innerHTML = SITE.about.timeline.map((t) => `
+  <li>
+    <div class="when">${t.when}</div>
+    <div class="role">${t.role}</div>
+    <div class="org">${t.org}</div>
+    <div class="note">${t.note}</div>
+  </li>`).join("");
+$("#statGrid").innerHTML = SITE.stats.map((s) => `
+  <div class="counter"><b data-count="${s.value}">0${s.suffix || ""}</b><span>${s.label}</span></div>`).join("");
+
+/* --- Contact: mail link, other channels, topic chips --- */
+$("#mailLink").textContent = SITE.contact.email;
+$("#mailLink").href = "mailto:" + SITE.contact.email;
+$("#linkGrid").innerHTML = [
+  {
+    ic: "GH", title: "GitHub",
+    sub: SITE.contact.githubLabel,
+    href: SITE.contact.github,
+  },
+  {
+    ic: "@", title: "Email",
+    sub: SITE.contact.email,
+    href: "mailto:" + SITE.contact.email,
+  },
+].map((l) => `
+  <a class="link-tile" href="${l.href}" ${l.href.startsWith("http") ? 'target="_blank" rel="noopener noreferrer"' : ""}>
+    <span class="ic">${l.ic}</span>
+    <span><b>${l.title}</b><small>${l.sub}</small></span>
+  </a>`).join("") + `
+  <div class="link-tile" style="cursor:default">
+    <span class="ic">⏱</span>
+    <span><b>Response time</b><small>${SITE.contact.response}</small></span>
+  </div>`;
+
+$("#subjectList").innerHTML = SITE.contact.subjects
+  .map((s, i) => `<button class="subject" type="button" data-subject="${s}" aria-pressed="${i === 0}">${s}</button>`)
+  .join("");
+
+/* ---------------------------------------------------------------------------
+   4c. TITLE SCREEN  —  press start -> boot log -> reveal app
+   --------------------------------------------------------------------------- */
+const titleScreen = $("#titleScreen");
+const bootLog     = $("#bootLog");
+let started = false;
+
+function runBootSequence(done) {
+  bootLog.classList.add("on");
+  bootLog.innerHTML = "";
+  let i = 0;
+  const step = () => {
+    if (i < SITE.boot.length) {
+      const line = SITE.boot[i++];
+      const row = document.createElement("div");
+      row.textContent = "> " + line;
+      bootLog.appendChild(row);
+      step();
+    } else {
+      const row = document.createElement("div");
+      row.className = "dim";
+      row.textContent = "> Press CTRL+anything... just click around instead.";
+      bootLog.appendChild(row);
+      setTimeout(done, 520);
+    }
+  };
+  step();
+}
+
+function startSite() {
+  if (started) return;
+  started = true;
+  runBootSequence(() => {
+    titleScreen.classList.add("hidden");
+    $("#app").classList.add("on");
+    openView(SITE.nav[0].id, true);
+  });
+}
+$("#pressStart").addEventListener("click", startSite);
+/* "hit enter" works from anywhere on the title screen (it is not focusable) */
+document.addEventListener("keydown", (e) => {
+  if (!started && (e.key === "Enter" || e.key === " ")) {
+    if (/input|textarea|select/i.test(e.target.tagName)) return;
+    e.preventDefault();
+    startSite();
+  }
+});
+
+/* ---------------------------------------------------------------------------
+   4d. TITLE SCREEN STARFIELD  (cheap animated canvas backdrop)
+   --------------------------------------------------------------------------- */
+(function starfield() {
+  const cv = $("#starfield"), ctx = cv.getContext("2d");
+  let stars = [], W = 0, H = 0, dpr = 1;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const count = Math.round((W * H) / 9000);
+    stars = Array.from({ length: count }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      z: rand(0.2, 1), r: rand(0.4, 1.7),
+    }));
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  let t = 0;
+  (function loop() {
+    t += 0.006;
+    ctx.clearRect(0, 0, W, H);
+    for (const s of stars) {
+      s.y += s.z * 0.42;
+      if (s.y > H) { s.y = -2; s.x = Math.random() * W; }
+      const a = 0.25 + Math.abs(Math.sin(t * s.z + s.x * 0.01)) * 0.7;
+      ctx.fillStyle = `rgba(190,240,255,${a})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r * s.z, 0, Math.PI * 2);
+      ctx.fill();
+      if (s.z > 0.9) { /* a few brighter ones get a glow */
+        ctx.fillStyle = `rgba(0,229,255,${a * 0.14})`;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * s.z * 5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ---------------------------------------------------------------------------
+   4e. VIEWS + MENU NAVIGATION
+   --------------------------------------------------------------------------- */
+const views = $$(".view");
+const navLinks = $$(".nav-link");
+let currentView = null;
+
+function openView(id, first) {
+  const target = document.getElementById("view-" + id);
+  if (!target) return;
+  currentView = id;
+  views.forEach((v) => v.classList.toggle("active", v === target));
+  navLinks.forEach((b) => b.setAttribute("aria-current", String(b.dataset.view === id)));
+  if (window.innerWidth <= 900) closeMobileNav();
+  if (!first) window.scrollTo({ top: 0, behavior: "smooth" });
+
+  if (id === "skills")   animateSkills();
+  if (id === "about")    animateCounters();
+  if (id === "arcade")   Arcade.onShow();
+}
+navLinks.forEach((b) => b.addEventListener("click", () => openView(b.dataset.view)));
+
+/* Mobile menu open/close */
+const nav = $("#nav"), menuBtn = $("#menuBtn");
+function openMobileNav()  { nav.classList.add("open");    menuBtn.setAttribute("aria-expanded", "true"); }
+function closeMobileNav() { nav.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
+menuBtn.addEventListener("click", () => nav.classList.contains("open") ? closeMobileNav() : openMobileNav());
+
+/* ---------------------------------------------------------------------------
+   4f. ANIMATED SKILL BARS
+   --------------------------------------------------------------------------- */
+let skillsAnimated = false;
+function animateSkills() {
+  if (skillsAnimated) return;
+  skillsAnimated = true;
+  $$("#skillGroups .bar span").forEach((bar) => {
+    const lvl = +bar.dataset.level;
+    /* delay keeps the stagger; the fill is the width transition */
+    bar.style.transitionDelay = bar.style.getPropertyValue("--d") || "0s";
+    requestAnimationFrame(() => { bar.style.width = lvl + "%"; });
+  });
+  $$("#skillGroups .skill-val").forEach((el, i) => {
+    countUp(el, +el.dataset.target, i * 70, "%");
+  });
+}
+
+/* ---------------------------------------------------------------------------
+   4g. COUNT-UP NUMBERS (stat counters + skill percentages)
+   --------------------------------------------------------------------------- */
+function countUp(el, target, delay, suffix) {
+  setTimeout(() => {
+    const dur = 1100, t0 = performance.now();
+    (function step(now) {
+      const k = clamp((now - t0) / dur, 0, 1);
+      const eased = 1 - Math.pow(1 - k, 3);           // easeOutCubic
+      el.textContent = Math.round(target * eased) + (suffix || "");
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }, delay || 0);
+}
+let countersAnimated = false;
+function animateCounters() {
+  if (countersAnimated) return;
+  countersAnimated = true;
+  $$("#statGrid .counter b").forEach((el, i) => {
+    const suffix = (el.textContent.match(/[^0-9]/) || [""])[0];
+    countUp(el, +el.dataset.count, i * 120, suffix);
+  });
+}
+
+/* ---------------------------------------------------------------------------
+   4h. PROJECT DETAIL MODAL
+   --------------------------------------------------------------------------- */
+const modal = $("#projectModal"), modalCard = $("#modalCard");
+let lastFocus = null;
+
+function openProject(id) {
+  const p = SITE.projects.find((x) => x.id === id);
+  if (!p) return;
+
+  const chips = [
+    `<span class="chip">${p.genre}</span>`,
+    `<span class="chip gold">${p.status}</span>`,
+    `<span class="chip ghost">${p.year}</span>`,
+    `<span class="chip ghost">ROLE // ${p.role}</span>`,
+    ...(p.stack || []).map((s) => `<span class="chip ghost">${s}</span>`),
+  ].join("");
+
+  const statRow = (p.stats || []).map((s) => `
+    <div class="stat-box"><b>${s.v}</b><span>${s.k}</span></div>`).join("");
+
+  const links = (p.links || []).filter((l) => l.href).map((l) => {
+    const external = l.href.startsWith("http");
+    return `<a class="btn ${external ? "" : "solid"}" href="${l.href}"
+              ${external ? 'target="_blank" rel="noopener noreferrer"' : 'data-close'}>
+              ${l.label} <span aria-hidden="true">→</span></a>`;
+  }).join("");
+
+  modalCard.innerHTML = `
+    <button class="modal-close" type="button" data-close aria-label="Close">✕</button>
+    <div class="modal-art">${artSVG(p)}</div>
+    <div class="modal-body">
+      <div class="modal-title">
+        <h3 id="modalTitle">${p.title}${p.subtitle ? ` <span class="sub">— ${p.subtitle}</span>` : ""}</h3>
+        <div class="modal-meta">${chips}</div>
+      </div>
+      <p class="arcade-note" style="margin:0">${p.tagline}</p>
+      ${statRow ? `<div class="stat-row">${statRow}</div>` : ""}
+      <div class="modal-section">
+        <h4>The brief</h4>
+        <p>${p.summary}</p>
+      </div>
+      <div class="modal-section">
+        <h4>What I built</h4>
+        <ul class="bullets">${p.highlights.map((h) => `<li>${h}</li>`).join("")}</ul>
+      </div>
+      ${links ? `<div class="modal-links">${links}<button class="btn ghost" type="button" data-close>Close file</button></div>` : ""}
+    </div>`;
+
+  lastFocus = document.activeElement;
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+  $(".modal-close", modalCard).focus();
+  Arcade.pauseIfRunning();
+}
+
+function closeProject() {
+  if (!modal.classList.contains("open")) return;
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
+  if (lastFocus) lastFocus.focus();
+}
+document.addEventListener("click", (e) => {
+  if (!e.target.closest) return;
+  const card = e.target.closest("[data-project]");
+  if (card) { openProject(card.dataset.project); return; }
+
+  const closer = e.target.closest("[data-close]");
+  if (closer) {
+    /* internal links like "#arcade" switch views before the modal closes */
+    const href = closer.getAttribute("href") || "";
+    closeProject();
+    if (href.startsWith("#")) openView(href.slice(1));
+  }
+});
+
+/* Keyboard: Esc closes modal, number keys jump between views */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") { closeProject(); closeMobileNav(); }
+  if (started && !modal.classList.contains("open") && !/input|textarea|select/i.test(e.target.tagName)) {
+    const n = parseInt(e.key, 10);
+    if (n >= 1 && n <= SITE.nav.length) openView(SITE.nav[n - 1].id);
+  }
+});
+
+/* ---------------------------------------------------------------------------
+   4i. TOAST (email copy)
+   --------------------------------------------------------------------------- */
+const toast = $("#toast");
+let toastTimer = null;
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 1900);
+}
+$("#copyBtn").addEventListener("click", async () => {
+  const btn = $("#copyBtn");
+  try {
+    await navigator.clipboard.writeText(SITE.contact.email);
+    btn.textContent = "Copied"; btn.classList.add("done");
+    showToast("Email copied to clipboard");
+    setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("done"); }, 1800);
+  } catch (err) {
+    showToast("Copy failed — select the address manually");
+  }
+});
+
+/* ---------------------------------------------------------------------------
+   4j. CONTACT FORM  ->  composes a mailto: (no backend, no external service)
+   --------------------------------------------------------------------------- */
+$$("#subjectList .subject").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    $$("#subjectList .subject").forEach((b) => b.setAttribute("aria-pressed", "false"));
+    btn.setAttribute("aria-pressed", "true");
+  });
+});
+$("#mailForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const topic = ($('#subjectList .subject[aria-pressed="true"]') || {}).dataset?.subject || SITE.contact.subjects[0];
+  const name  = $("#fName").value.trim();
+  const mail  = $("#fEmail").value.trim();
+  const msg   = $("#fMsg").value.trim() || "Hi James, I would like to talk about a project.";
+  const body  =
+    `${msg}\n\n` +
+    `—\nName: ${name || "(not provided)"}\n` +
+    `Email: ${mail || "(not provided)"}\n` +
+    `Sent from the portfolio arcade terminal.`;
+  window.location.href =
+    `mailto:${SITE.contact.email}?subject=${encodeURIComponent(`[${topic}] ${SITE.brand.fullName} portfolio enquiry`)}&body=${encodeURIComponent(body)}`;
+});
+
+/* ===========================================================================
+   4k. ARCADE  —  the playable canvas mini-game
+   A small wave-based top-down shooter. No libraries: every entity, bullet,
+   particle and hit test is written by hand below.
+   =========================================================================== */
+const Arcade = (function () {
+  const cv = $("#game");
+  const ctx = cv.getContext("2d");
+
+  /* Fixed logical resolution — the canvas is scaled by CSS, so the game
+     resolution never changes and there is no resize maths mid-run. */
+  const W = cv.width, H = cv.height;
+  let dpr = 1;
+  function applyDPR() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  applyDPR();
+  window.addEventListener("resize", applyDPR);
+
+  const C = ARCADE.colors;
+  const keys = Object.create(null);          // keyboard state
+  const pointer = { active: false, x: W / 2, y: H / 2 }; // touch / mouse drag
+
+  let state = "idle";                        // idle | playing | paused | over
+  let player, bullets, eBullets, enemies, parts, drops, floaters;
+  let score, wave, lives, best, fireTimer, invuln, shake, waveTimer, bossUp, waveActive;
+  let rafId = null, last = 0;
+
+  try { best = +(localStorage.getItem("jmv_arcade_best") || 0) || 0; } catch (e) { best = 0; }
+  $("#hudBest").textContent = best;
+
+  /* ---------------- helpers ---------------- */
+  const dist2 = (ax, ay, bx, by) => (ax - bx) ** 2 + (ay - by) ** 2;
+  const clampToArena = (o, pad) => {
+    o.x = clamp(o.x, pad, W - pad);
+    o.y = clamp(o.y, pad, H - pad);
+  };
+
+  function burst(x, y, color, count, speed) {
+    for (let i = 0; i < count; i++) {
+      const a = rand(0, Math.PI * 2), s = rand(speed * 0.35, speed);
+      parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life: rand(0.25, 0.7), max: 0.7, r: rand(1.4, 3.6), color });
+    }
+  }
+  function floater(x, y, text, color) {
+    floaters.push({ x, y, text, color, life: 0.85 });
+  }
+
+  /* ---------------- run lifecycle ---------------- */
+  function reset() {
+    player = { x: W / 2, y: H - 90, r: ARCADE.playerRadius, speed: ARCADE.playerSpeed, fire: 0 };
+    bullets = []; eBullets = []; enemies = []; parts = []; drops = []; floaters = [];
+    score = 0; wave = 0; lives = ARCADE.startLives;
+    fireTimer = 0; invuln = 0; shake = 0; waveTimer = 0; waveActive = false; bossUp = false;
+    updateHUD();
+  }
+
+  function start() {
+    reset();
+    state = "playing";
+    overlay.classList.add("hide");
+    $("#btnPause").textContent = "Pause";
+    if (!rafId) { last = performance.now(); rafId = requestAnimationFrame(loop); }
+  }
+
+  function gameOver() {
+    state = "over";
+    if (score > best) {
+      best = score;
+      try { localStorage.setItem("jmv_arcade_best", String(best)); } catch (e) {}
+    }
+    updateHUD();
+    $("#ovTitle").textContent = "RUN TERMINATED";
+    $("#ovBody").textContent = `Wave ${wave} reached — score ${score} · best ${best}. The spawn director thanks you for participating.`;
+    $("#ovScore").style.display = "block";
+    $("#ovScore").textContent = score;
+    $("#ovBtn").textContent = "Run it back";
+    overlay.classList.remove("hide");
+  }
+
+  function pause() {
+    if (state !== "playing") return;
+    state = "paused";
+    $("#btnPause").textContent = "Resume";
+    $("#ovTitle").textContent = "PAUSED";
+    $("#ovBody").textContent = "Systems held. Press Resume or hit P to get back in.";
+    $("#ovScore").style.display = "none";
+    $("#ovBtn").textContent = "Resume";
+    overlay.classList.remove("hide");
+  }
+  function resume() {
+    if (state !== "paused") return;
+    state = "playing";
+    overlay.classList.add("hide");
+    $("#btnPause").textContent = "Pause";
+  }
+  function pauseIfRunning() { if (state === "playing") pause(); }
+
+  function onShow() {
+    /* Give focus so keyboard players can shoot immediately, without scrolling. */
+    cv.focus && cv.focus();
+    if (state === "over" || state === "idle") {
+      if (!rafId) { last = performance.now(); rafId = requestAnimationFrame(loop); }
+    }
+  }
+
+  /* ---------------- wave director ---------------- */
+  const ENEMY_TYPES = {
+    grunt: { r: 15, hp: 2,  spd: 92,  color: C.grunt, score: 100, fire: 1.5, dmg: 1 },
+    dart:  { r: 11, hp: 1,  spd: 215, color: C.dart,  score: 150, fire: 0,   dmg: 1 },
+    brute: { r: 24, hp: 7,  spd: 58,  color: C.brute, score: 300, fire: 2.2, dmg: 2 },
+    boss:  { r: 42, hp: 34, spd: 46,  color: C.boss,  score: 2500, fire: 0.9, dmg: 2 },
+  };
+
+  function spawnWave(n) {
+    wave = n;
+    const isBoss = n % ARCADE.bossEvery === 0;
+    updateHUD();
+
+    if (isBoss) {
+      const b = { ...ENEMY_TYPES.boss, type: "boss", x: W / 2, y: -60, maxHp: ENEMY_TYPES.boss.hp + n * 3, t: 0, dir: Math.random() < .5 ? 1 : -1 };
+      b.hp = b.maxHp;
+      b.fire = 1.2;
+      enemies.push(b);
+      floater(W / 2, 40, "HEAVY UNIT INBOUND", C.boss);
+      bossUp = true;
+    } else {
+      const count = 3 + Math.floor(n * 1.3);
+      for (let i = 0; i < count; i++) {
+        /* Weighted pick: grunts early, brutes from wave 4, darts from wave 2 */
+        const r = Math.random();
+        let type = "grunt";
+        if (n >= 2 && r > .78) type = "dart";
+        if (n >= 4 && r > .90) type = "brute";
+        if (n >= 6 && r > .96) type = "brute";
+        const t = ENEMY_TYPES[type];
+        const e = {
+          ...t, type,
+          x: rand(40, W - 40), y: -40 - i * rand(24, 60),
+          maxHp: t.hp + Math.floor(n / 5), t: 0, fire: rand(0.6, 2),
+        };
+        e.hp = e.maxHp;
+        enemies.push(e);
+      }
+    }
+    waveActive = true;
+  }
+
+  /* ---------------- update ---------------- */
+  function update(dt) {
+    /* ---- player movement (keyboard OR pointer drag, whichever is used) ---- */
+    let mx = 0, my = 0;
+    if (keys.ArrowLeft  || keys.a) mx -= 1;
+    if (keys.ArrowRight || keys.d) mx += 1;
+    if (keys.ArrowUp    || keys.w) my -= 1;
+    if (keys.ArrowDown  || keys.s) my += 1;
+    if (mx || my) {
+      const m = Math.hypot(mx, my) || 1;
+      player.x += (mx / m) * player.speed * dt;
+      player.y += (my / m) * player.speed * dt;
+    } else if (pointer.active) {
+      const dx = pointer.x - player.x, dy = pointer.y - player.y;
+      const d = Math.hypot(dx, dy);
+      if (d > 3) {
+        const step = Math.min(d, player.speed * dt * 1.35);
+        player.x += (dx / d) * step;
+        player.y += (dy / d) * step;
+      }
+    }
+    clampToArena(player, player.r + 6);
+
+    if (invuln > 0) invuln -= dt;
+    if (shake > 0)   shake = Math.max(0, shake - dt * 3.2);
+
+    /* ---- auto-fire ---- */
+    fireTimer -= dt;
+    if (fireTimer <= 0) {
+      fireTimer = ARCADE.fireInterval;
+      bullets.push({ x: player.x, y: player.y - player.r - 6, vy: -ARCADE.bulletSpeed, r: 3 });
+    }
+
+    /* ---- wave pacing ---- */
+    if (!waveActive) {
+      waveTimer -= dt;
+      if (waveTimer <= 0) { waveTimer = ARCADE.waveBreak; spawnWave(wave + 1); }
+    }
+
+    /* ---- bullets ---- */
+    for (const b of bullets) b.y += b.vy * dt;
+    bullets = bullets.filter((b) => b.y > -20);
+
+    for (const b of eBullets) { b.x += b.vx * dt; b.y += b.vy * dt; }
+    eBullets = eBullets.filter((b) => b.x > -30 && b.x < W + 30 && b.y > -30 && b.y < H + 30);
+
+    /* ---- enemies ---- */
+    for (const e of enemies) {
+      e.t += dt;
+      if (e.type === "boss") {
+        /* boss sweeps side to side and dips toward the player */
+        e.x += e.dir * 70 * dt;
+        if (e.x < 90 || e.x > W - 90) e.dir *= -1;
+        const targetY = H * 0.30 + Math.sin(e.t * 0.9) * 46;
+        e.y += (targetY - e.y) * 1.1 * dt;
+        e.fire -= dt;
+        if (e.fire <= 0) {
+          /* the heavy unit gets meaner as the run goes on */
+          e.fire = Math.max(0.5, 1.5 - wave * 0.05);
+          /* three-way spread aimed slightly at the player */
+          const base = Math.atan2(player.y - e.y, player.x - e.x);
+          for (const off of [-0.32, 0, 0.32]) {
+            const a = base + off, s = 235;
+            eBullets.push({ x: e.x, y: e.y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, r: 6, color: C.boss });
+          }
+        }
+      } else if (e.type === "dart") {
+        /* dives at the player, then loops back up for another pass */
+        const a = Math.atan2(player.y - e.y, player.x - e.x);
+        e.x += Math.cos(a) * e.spd * dt;
+        e.y += Math.sin(a) * e.spd * dt;
+        if (e.y > H + 30) { e.y = -30; e.x = rand(40, W - 40); }
+      } else {
+        /* grunts and brutes advance to a "battle line" and then hold it,
+           sliding sideways so the fight never turns into a pile-up */
+        const line = H - 130;
+        if (e.y < line) e.y += e.spd * dt;
+        else e.y = line + Math.sin(e.t * 2) * 10;
+        e.x += clamp((player.x - e.x), -1, 1) * (e.type === "brute" ? 26 : 46) * dt;
+        if (e.type === "grunt" || e.type === "brute") {
+          e.fire -= dt;
+          if (e.fire <= 0 && e.y > 0 && e.y < H - 120) {
+            e.fire = e.fire * rand(0.75, 1.3);
+            const a = Math.atan2(player.y - e.y, player.x - e.x) + rand(-0.12, 0.12);
+            const s = e.type === "brute" ? 215 : 190;
+            for (const off of (e.type === "brute" ? [-0.22, 0.22] : [0])) {
+              eBullets.push({ x: e.x, y: e.y, vx: Math.cos(a + off) * s, vy: Math.sin(a + off) * s, r: 5, color: C.grunt });
+            }
+          }
+        }
+      }
+
+      /* enemy bullets hit the player */
+      if (invuln <= 0) {
+        for (const b of eBullets) {
+          if (dist2(b.x, b.y, player.x, player.y) < (player.r + b.r) ** 2) {
+            b.dead = true;
+            hitPlayer(1);
+            break;
+          }
+        }
+      }
+      /* ram damage */
+      if (invuln <= 0 && dist2(e.x, e.y, player.x, player.y) < (e.r + player.r) ** 2) {
+        e.hp -= 2; hitPlayer(e.dmg);
+        burst(e.x, e.y, e.color, 6, 160);
+        if (e.hp <= 0) killEnemy(e);
+      }
+    }
+    eBullets = eBullets.filter((b) => !b.dead);
+
+    /* ---- player bullets hit enemies ---- */
+    for (const b of bullets) {
+      for (const e of enemies) {
+        if (dist2(b.x, b.y, e.x, e.y) < (e.r + b.r) ** 2) {
+          b.dead = true;
+          e.hp -= 1;
+          burst(b.x, b.y, e.color, 3, 120);
+          if (e.hp <= 0) killEnemy(e);
+          break;
+        }
+      }
+    }
+    bullets = bullets.filter((b) => !b.dead);
+
+    /* wave cleared? */
+    if (waveActive && enemies.length === 0) {
+      waveActive = false;
+      waveTimer = ARCADE.waveBreak;
+      const bonus = 50 * wave;
+      score += bonus;
+      floater(W / 2, H / 2, `WAVE ${wave} CLEAR  +${bonus}`, C.player);
+      updateHUD();
+    }
+
+    /* dead enemies leave the arena (killEnemy only flags them) */
+    enemies = enemies.filter((e) => !e.dead && e.y < H + 80);
+
+    /* ---- health drops ---- */
+    for (const d of drops) {
+      d.y += 42 * dt;
+      if (invuln <= 0 && dist2(d.x, d.y, player.x, player.y) < (player.r + 12) ** 2) {
+        d.dead = true; lives = Math.min(5, lives + 1);
+        floater(player.x, player.y - 22, "+1 HULL", "#38ffb0");
+        updateHUD();
+      }
+    }
+    drops = drops.filter((d) => !d.dead && d.y < H + 20);
+
+    /* ---- particles + floating text ---- */
+    for (const p of parts) { p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= 0.94; p.vy *= 0.94; p.life -= dt; }
+    parts = parts.filter((p) => p.life > 0);
+    for (const f of floaters) { f.y -= 34 * dt; f.life -= dt; }
+    floaters = floaters.filter((f) => f.life > 0);
+  }
+
+  function killEnemy(e) {
+    e.dead = true;
+    score += e.score;
+    burst(e.x, e.y, e.color, e.type === "boss" ? 46 : 16, e.type === "boss" ? 320 : 200);
+    shake = Math.min(1, shake + (e.type === "boss" ? 1 : 0.22));
+    if (e.type === "boss") { bossUp = false; floater(e.x, e.y, "HEAVY UNIT DESTROYED", C.player); }
+    if (Math.random() < (e.type === "grunt" ? 0.07 : 0.18)) drops.push({ x: e.x, y: e.y, dead: false });
+    updateHUD();
+  }
+
+  function hitPlayer(dmg) {
+    if (invuln > 0) return;
+    lives -= dmg;
+    invuln = ARCADE.invulnAfterHit;
+    shake = 1;
+    burst(player.x, player.y, C.player, 24, 240);
+    floater(player.x, player.y - 26, `-${dmg} HULL`, C.grunt);
+    /* clear nearby bullets so the player is not instantly re-killed */
+    eBullets = eBullets.filter((b) => dist2(b.x, b.y, player.x, player.y) > 90 ** 2);
+    updateHUD();
+    if (lives <= 0) gameOver();
+  }
+
+  function updateHUD() {
+    $("#hudScore").textContent = score;
+    $("#hudWave").textContent  = wave || "—";
+    $("#hudLives").textContent = "▲".repeat(Math.max(0, lives)) || "0";
+  }
+
+  /* ---------------- draw ---------------- */
+  function draw() {
+    ctx.save();
+    ctx.clearRect(0, 0, W, H);
+
+    /* background */
+    const bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, "#050a14");
+    bg.addColorStop(1, "#02040a");
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    /* grid floor (scrolling) */
+    ctx.strokeStyle = "rgba(0,229,255,.10)";
+    ctx.lineWidth = 1;
+    const off = (state === "playing" ? waveTimer * 10 : 0) % 40;
+    ctx.beginPath();
+    for (let x = -40; x < W + 40; x += 40) { ctx.moveTo(x + off, 0); ctx.lineTo(x + off, H); }
+    for (let y = -40; y < H + 40; y += 40) { ctx.moveTo(0, y + off); ctx.lineTo(W, y + off); }
+    ctx.stroke();
+
+    /* arena frame */
+    ctx.strokeStyle = "rgba(0,229,255,.35)";
+    ctx.strokeRect(10, 10, W - 20, H - 20);
+
+    ctx.translate(rand(-4, 4) * shake, rand(-4, 4) * shake);
+
+    /* health drops */
+    for (const d of drops) {
+      ctx.fillStyle = "#38ffb0";
+      ctx.shadowColor = "#38ffb0"; ctx.shadowBlur = 16;
+      ctx.beginPath(); ctx.arc(d.x, d.y, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    /* enemies */
+    for (const e of enemies) {
+      ctx.save();
+      ctx.translate(e.x, e.y);
+      ctx.rotate(e.type === "dart" ? Math.atan2(player.y - e.y, player.x - e.x) : 0);
+      ctx.fillStyle = e.color;
+      ctx.shadowColor = e.color; ctx.shadowBlur = e.type === "boss" ? 26 : 14;
+
+      if (e.type === "grunt") {
+        ctx.beginPath();
+        ctx.moveTo(0, -e.r); ctx.lineTo(e.r, e.r * .8); ctx.lineTo(0, e.r * .35); ctx.lineTo(-e.r, e.r * .8);
+        ctx.closePath(); ctx.fill();
+      } else if (e.type === "dart") {
+        ctx.beginPath();
+        ctx.moveTo(0, -e.r * 1.4); ctx.lineTo(e.r, e.r); ctx.lineTo(-e.r, e.r);
+        ctx.closePath(); ctx.fill();
+      } else if (e.type === "brute") {
+        ctx.beginPath();
+        for (let i = 0; i < 6; i++) {
+          const a = (i / 6) * Math.PI * 2 + e.t * 0.6;
+          const r = i % 2 ? e.r * 0.8 : e.r * 1.15;
+          i ? ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r) : ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r);
+        }
+        ctx.closePath(); ctx.fill();
+      } else { /* boss */
+        ctx.beginPath();
+        for (let i = 0; i < 10; i++) {
+          const a = (i / 10) * Math.PI * 2 - e.t * 0.4;
+          const r = i % 2 ? e.r * 0.74 : e.r;
+          i ? ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r) : ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r);
+        }
+        ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = "rgba(255,255,255,.5)"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(0, 0, e.r * 0.42, 0, Math.PI * 2); ctx.stroke();
+      }
+      ctx.restore();
+
+      /* health bar for anything that can take more than one hit */
+      if (e.type === "brute" || e.type === "boss") {
+        const bw = e.r * 2;
+        ctx.fillStyle = "rgba(255,255,255,.12)";
+        ctx.fillRect(e.x - bw / 2, e.y - e.r - 12, bw, 4);
+        ctx.fillStyle = e.type === "boss" ? C.boss : C.brute;
+        ctx.fillRect(e.x - bw / 2, e.y - e.r - 12, bw * (e.hp / e.maxHp), 4);
+      }
+      ctx.shadowBlur = 0;
+    }
+
+    /* enemy bullets */
+    for (const b of eBullets) {
+      ctx.fillStyle = b.color;
+      ctx.shadowColor = b.color; ctx.shadowBlur = 12;
+      ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+
+    /* player bullets */
+    for (const b of bullets) {
+      ctx.fillStyle = C.playerBullet;
+      ctx.shadowColor = C.player; ctx.shadowBlur = 14;
+      ctx.fillRect(b.x - 1.6, b.y - 9, 3.2, 14);
+    }
+    ctx.shadowBlur = 0;
+
+    /* player ship */
+    if (invuln <= 0 || Math.floor(invuln * 14) % 2 === 0) {
+      ctx.save();
+      ctx.translate(player.x, player.y);
+      ctx.fillStyle = C.player;
+      ctx.shadowColor = C.player; ctx.shadowBlur = 20;
+      ctx.beginPath();
+      ctx.moveTo(0, -player.r * 1.5);
+      ctx.lineTo(player.r, player.r);
+      ctx.lineTo(0, player.r * 0.5);
+      ctx.lineTo(-player.r, player.r);
+      ctx.closePath(); ctx.fill();
+      ctx.fillStyle = "#fff";
+      ctx.beginPath();
+      ctx.moveTo(0, -player.r * 0.5); ctx.lineTo(player.r * .28, player.r * .3); ctx.lineTo(-player.r * .28, player.r * .3);
+      ctx.closePath(); ctx.fill();
+      ctx.restore();
+      ctx.shadowBlur = 0;
+    }
+
+    /* particles */
+    for (const p of parts) {
+      ctx.globalAlpha = clamp(p.life / p.max, 0, 1);
+      ctx.fillStyle = p.color;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    /* floating text */
+    ctx.textAlign = "center";
+    ctx.font = "600 15px ui-monospace, Consolas, monospace";
+    for (const f of floaters) {
+      ctx.globalAlpha = clamp(f.life / .85, 0, 1);
+      ctx.fillStyle = f.color;
+      ctx.fillText(f.text, f.x, f.y);
+    }
+    ctx.globalAlpha = 1;
+
+    /* wave banner */
+    if (state === "playing" && !waveActive) {
+      ctx.textAlign = "center";
+      ctx.fillStyle = C.hud;
+      ctx.font = "700 34px Arial Black, Arial, sans-serif";
+      ctx.fillText(`WAVE ${wave + 1} INCOMING`, W / 2, H / 2);
+    }
+    ctx.restore();
+  }
+
+  /* ---------------- main loop ---------------- */
+  function loop(now) {
+    rafId = requestAnimationFrame(loop);
+    const dt = Math.min((now - last) / 1000, 0.05);   // clamp so tab-switches don't teleport
+    last = now;
+    if (state === "playing") update(dt);
+    else if (state === "idle") { /* keep the arena visible but static */ }
+    draw();
+  }
+
+  /* ---------------- input ---------------- */
+  const MOVE_KEYS = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "a", "d", "w", "s", "A", "D", "W", "S", " "];
+  window.addEventListener("keydown", (e) => {
+    const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    if (MOVE_KEYS.includes(e.key) || MOVE_KEYS.includes(k)) {
+      if (currentView === "arcade" && !/input|textarea|select/i.test(e.target.tagName)) e.preventDefault();
+    }
+    keys[k] = true;
+    if (k === "p" && currentView === "arcade") { state === "paused" ? resume() : pause(); }
+    if (k === "enter" && currentView === "arcade" && (state === "over" || state === "idle")) start();
+  });
+  window.addEventListener("keyup", (e) => { keys[e.key.length === 1 ? e.key.toLowerCase() : e.key] = false; });
+  window.addEventListener("blur", () => { for (const k in keys) keys[k] = false; pauseIfRunning(); });
+
+  /* Pointer / touch drag to move the ship (with mouse this also works) */
+  function toLogical(e) {
+    const r = cv.getBoundingClientRect();
+    return { x: ((e.clientX - r.left) / r.width) * W, y: ((e.clientY - r.top) / r.height) * H };
+  }
+  cv.addEventListener("pointerdown", (e) => {
+    if (state !== "playing") return;
+    const p = toLogical(e);
+    pointer.x = p.x; pointer.y = p.y; pointer.active = true;
+    cv.setPointerCapture(e.pointerId);
+  });
+  cv.addEventListener("pointermove", (e) => {
+    if (!pointer.active) return;
+    const p = toLogical(e);
+    pointer.x = p.x; pointer.y = p.y;
+  });
+  const endPointer = () => { pointer.active = false; };
+  cv.addEventListener("pointerup", endPointer);
+  cv.addEventListener("pointercancel", endPointer);
+  cv.addEventListener("pointerleave", endPointer);
+
+  /* ---------------- UI wiring ---------------- */
+  const overlay = $("#gameOverlay");
+  $("#ovBtn").addEventListener("click", () => (state === "paused" ? resume() : start()));
+  $("#btnStart").addEventListener("click", () => (state === "paused" ? resume() : start()));
+  $("#btnPause").addEventListener("click", () => (state === "paused" ? resume() : pause()));
+
+  /* Idle state so the arena is visible behind the overlay from the start */
+  reset();
+  state = "idle";
+  updateHUD();
+  last = performance.now();
+  rafId = requestAnimationFrame(loop);
+
+  /* Returning to this view shouldn't leave a paused overlay stuck around */
+  document.addEventListener("visibilitychange", () => { if (document.hidden) pauseIfRunning(); });
+
+  return { start, pause, resume, onShow, pauseIfRunning };
+})();
+
+/* ---------------------------------------------------------------------------
+   4l. Small niceties: current year, and a nudge for very small screens
+   --------------------------------------------------------------------------- */
+$("#footRight").textContent =
+  "Built with hand-written HTML / CSS / JS — no frameworks, no assets";
+</script>
+</body>
+</html>
